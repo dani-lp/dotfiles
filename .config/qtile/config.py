@@ -24,10 +24,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget
+from libqtile import bar, hook, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile import qtile
+import subprocess
+import os
 
 # from libqtile.utils import guess_terminal
 from qtile_extras import widget
@@ -162,6 +164,8 @@ keys = [
         lazy.layout.move_right(),
         desc="Move windows right in the current stack",
     ),
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle forward layout"),
+    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Toggle last layout"),
     # TODO revise layout flipping + swapping
     # window resizing
     Key([mod, "mod1"], "Left", resize_left, desc="Resize window left"),
@@ -186,90 +190,49 @@ keys = [
     # Key([], "Print", lazy.spawn("prtscr"), desc="Print Screen"),  # TODO enable
     # Key([mod], "Print", lazy.spawn("prtregion -d"), desc="Print region of screen"),   # TODO enable
     # Key([mod, "shift"], "Print", lazy.spawn("prtregion -c"), desc="Print region of screen to clipboard"), # TODO enable
-    # Key(
-    #     [],
-    #     "XF86AudioRaiseVolume",
-    #     lazy.spawn("./.config/qtile/eww_vol.sh up"),
-    #     desc="Increase volume",
-    # ),
-    # Key(
-    #     [],
-    #     "XF86AudioLowerVolume",
-    #     lazy.spawn("./.config/qtile/eww_vol.sh down"),
-    #     desc="Decrease volume",
-    # ),
-    # Key(
-    #     [],
-    #     "XF86AudioMute",
-    #     lazy.spawn("./.config/qtile/eww_vol.sh mute"),
-    #     desc="Toggle mute",
-    # ),
-    # Key(
-    #     [mod],
-    #     "XF86AudioRaiseVolume",
-    #     lazy.spawn("vol pulsemic up"),
-    #     desc="Increase mic volume",
-    # ),
-    # Key(
-    #     [mod],
-    #     "XF86AudioLowerVolume",
-    #     lazy.spawn("vol pulsemic down"),
-    #     desc="Decrease mic volume",
-    # ),
-    # Key(
-    #     [mod],
-    #     "XF86AudioMute",
-    #     lazy.spawn("vol pulsemic mute"),
-    #     desc="Toggle mic mute",
-    # ),
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
-    # Switch between windows
-    # Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
-    # Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    # Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    # Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    # Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    # Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    # Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    # Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    # Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    # Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    # Key(
-    #     [mod, "shift"],
-    #     "Return",
-    #     lazy.layout.toggle_split(),
-    #     desc="Toggle between split and unsplit sides of stack",
-    # ),
+    # audio stuff
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("./.config/qtile/scripts/temp_vol.sh up"),
+        desc="Increase volume",
+    ),
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("./.config/qtile/scripts/temp_vol.sh down"),
+        desc="Decrease volume",
+    ),
+    Key(
+        [mod],
+        "F5",
+        lazy.spawn("playerctl previous"),
+        desc="Play last audio",
+    ),
+    Key([mod], "F6", lazy.spawn("playerctl next"), desc="Play next audio"),
+    Key(
+        [mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"
+    ),
+    Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
+
     # Toggle between different layouts as defined below
-    # Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    # Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    # Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    # Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 ]
 
 # TODO revise "lay", wm_classes
 workspaces = [
-    {"name": " WEB", "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
+    {"name": " WEB", "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
     {"name": " DEV", "key": "2", "matches": [Match(wm_class="code")], "lay": "bsp"},
     {"name": " SYS", "key": "3", "matches": [Match(wm_class="code")], "lay": "bsp"},
     {
-        "name": " DISC",
+        "name": " DISC",
         "key": "4",
         "matches": [Match(wm_class="discord")],
         "lay": "bsp",
     },
     {"name": " MUS", "key": "5", "matches": [Match(wm_class="spotify")], "lay": "bsp"},
     {
-        "name": " FILE",
+        "name": " DIR",
         "key": "6",
         "matches": [Match(wm_class="org.gnome.Nautilus")],
         "lay": "bsp",
@@ -367,38 +330,17 @@ layout_theme = {
 # TODO revise every option
 layouts = [
     layout.Bsp(**layout_theme, fair=False, border_on_single=True),
-    layout.Columns(
-        **layout_theme,
-        border_on_single=True,
-        num_columns=2,
-        border_focus_stack="#E8A2AF",  # TODO use colors list
-        border_normal_stack="#E8A2AF",
-        split=False,
-        wrap_focus_columns=True,
-        wrap_focus_rows=True,
-        wrap_focus_stacks=True,
-    ),
-    # layout.Max(),
-    # layout.Stack(num_stacks=2),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-    layout.Floating(**layout_theme),
+    layout.MonadTall(**layout_theme, ratio=0.6),
 ]
 
 widget_defaults = dict(
     font="FiraCode Nerd Font",
     fontsize=14,
     padding=2,
-    background=colors[12],
+    background=colors[13],
     decorations=[
         BorderDecoration(
-            colour=colors[12],
+            colour=colors[8],
             border_width=[0, 0, 0, 0],
         )
     ],
@@ -409,20 +351,20 @@ group_box_settings = {
     "active": colors[2],  # or [1]
     "background": colors[12],  # background is [10-12]
     "block_highlight_text_color": colors[2],
-    "borderwidth": 4,
+    "borderwidth": 2,
     "disable_drag": True,
     "fontsize": 12,
     "foreground": colors[18],  # might need a lighter color
-    "highlight_color": colors[1],  # TODO revise
-    "highlight_method": "block",
+    "highlight_color": colors[13],  # TODO revise
+    "highlight_method": "line",
     "inactive": colors[14],
     "other_current_screen_border": colors[12],
     "other_screen_border": colors[12],
     "padding_x": 6,
     "padding_y": 16,
     "rounded": False,
-    "this_current_screen_border": colors[13],
-    "this_screen_border": colors[13],  # or [1], [2]
+    "this_current_screen_border": colors[2],
+    "this_screen_border": colors[2],  # or [1], [2]
     "urgent_border": colors[3],
 }
 
@@ -433,23 +375,37 @@ group_box_settings = {
 def open_launcher():
     qtile.cmd_spawn("rofi -show drun")
 
+def open_powermenu():
+    qtile.cmd_spawn("power")
+
 
 def create_bar():
+    """Create top bar, defined as function to allow duplication in other monitors"""
+    def _separator():
+        return widget.Sep(
+            linewidth=0,
+            foreground=colors[2],
+            padding=10,
+            size_percent=50,
+            background=colors[12],
+        )
+    
     return bar.Bar(
         [
             widget.TextBox(
-                text="",
-                foreground=colors[2],  # TODO revise, use [1]?
-                background=colors[12],
-                font="Font Awesome 6 Free Solid",
-                fontsize=16,
-                padding=20,
+                # text=" ",
+                text=" ",
+                font="FiraCode Nerd Font",
+                fontsize=20,
+                foreground=colors[2],
+                background=colors[10],
+                padding=16,
                 mouse_callbacks={"Button1": open_launcher},
             ),
             # Workspaces
             widget.GroupBox(  # WEB
                 font="Font Awesome 6 Brands",
-                visible_groups=[" WEB"],
+                visible_groups=[" WEB"],
                 **group_box_settings,
             ),
             widget.GroupBox(  # DEV, SYS
@@ -459,48 +415,41 @@ def create_bar():
             ),
             widget.GroupBox(  # DISC, MUS
                 font="Font Awesome 6 Brands",
-                visible_groups=[" DISC", " MUS"],
+                visible_groups=[" DISC", " MUS"],
                 **group_box_settings,
             ),
             widget.GroupBox(  # FILE, NOT
                 font="Font Awesome 6 Free Solid",
-                visible_groups=[" FILE", " NOT"],
+                visible_groups=[" DIR", " NOT"],
                 **group_box_settings,
             ),
             # Middle spacer
             widget.Spacer(),
-            widget.Sep(
-                linewidth=0,
-                foreground=colors[2],
-                padding=10,
-                size_percent=50,
-            ),
+            _separator(),
             # Sound
             widget.TextBox(
-                text=" ",
+                text="",
                 foreground=colors[6],
                 background=colors[12],
                 font="Font Awesome 6 Free Solid",
                 # fontsize=38,
+                padding=8,
             ),
             widget.PulseVolume(
                 foreground=colors[6],
                 background=colors[12],
                 limit_max_volume="True",
                 # mouse_callbacks={"Button3": open_pavu},
+                padding=8,
             ),
-            widget.Sep(
-                linewidth=0,
-                foreground=colors[2],
-                padding=10,
-                size_percent=50,
-            ),
+            _separator(),
             # Network
             widget.TextBox(
-                text=" ",
+                text="",
                 font="Font Awesome 6 Free Solid",
                 foreground=colors[5],  # fontsize=38
                 background=colors[12],
+                padding=8,
             ),
             widget.Net(
                 interface="enp8s0",
@@ -510,57 +459,52 @@ def create_bar():
                 prefix="k",
                 padding=5,
             ),
-            widget.Sep(
-                linewidth=0,
-                foreground=colors[2],
-                padding=10,
-                size_percent=50,
-            ),
+            _separator(),
             # Date
             widget.TextBox(
-                text=" ",
+                text="",
                 font="Font Awesome 6 Free Solid",
                 foreground=colors[7],  # teal
                 # fontsize=38
                 background=colors[12],
+                padding=8,
             ),
             widget.Clock(
                 format="%a, %b %d",
                 foreground=colors[7],
                 background=colors[12],
+                padding=8,
             ),
-            widget.Sep(
-                linewidth=0,
-                foreground=colors[2],
-                padding=10,
-                size_percent=50,
-            ),
+            _separator(),
             # Clock
             widget.TextBox(
-                text=" ",
+                text="",
                 font="Font Awesome 6 Free Solid",
                 foreground=colors[8],  # blue
                 # fontsize=38
                 background=colors[12],
+                padding=8,
             ),
             widget.Clock(
                 format="%I:%M %p",
                 foreground=colors[8],
                 background=colors[12],
+                padding=8,
             ),
             # Power button
             widget.TextBox(
                 text="⏻",
+                background=colors[10],
                 foreground=colors[2],
                 font="Font Awesome 6 Free Solid",
-                fontsize=20,
+                fontsize=16,
                 padding=20,
-                # mouse_callbacks={"Button1": open_powermenu},
+                mouse_callbacks={"Button1": open_powermenu},
             ),
         ],
         32,
         margin=[6, 6, 6, 6],
-        opacity=0.4,
+        opacity=1,
     )
 
 
@@ -629,6 +573,10 @@ auto_minimize = False
 # wl_input_rules = None
 
 # TODO hooks
+@hook.subscribe.startup_once
+def start_once():
+    home = os.path.expanduser("~")
+    subprocess.call([home + "/.config/qtile/scripts/autostart.sh"])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
