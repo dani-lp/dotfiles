@@ -41,6 +41,14 @@ terminal = "kitty"
 
 # TODO
 # - dropdown terminal
+# - custom icons for layouts
+# - customize special rofi menus
+# - screenshots
+# - bar functions
+# - qtile hooks
+# 
+# Take a look at:
+# - Countdown, Memory widget
 
 # resize functions
 def resize(qtile, direction):
@@ -120,7 +128,7 @@ keys = [
     # qtile
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     # menus
-    Key([mod], "e", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
+    Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi.old/config.rasi"), desc="Launch Rofi"),
     # Key([mod, "shift"], "e", lazy.spawn("power"), desc="Power Menu"),
     # focus, move windows
     Key(
@@ -172,7 +180,7 @@ keys = [
     Key([mod, "mod1"], "Right", resize_right, desc="Resize window Right"),
     Key([mod, "mod1"], "Up", resize_up, desc="Resize windows upward"),
     Key([mod, "mod1"], "Down", resize_down, desc="Resize windows downward"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Normalize window size ratios"),
+    Key([mod, "mod1"], "n", lazy.layout.normalize(), desc="Normalize window size ratios"),
     # window states
     Key(
         [mod],
@@ -185,6 +193,7 @@ keys = [
     Key([mod], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
     Key([mod], "c", lazy.spawn("code"), desc="Launch VSCode"),
+    Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
     # TODO rofi variants
     # system shortcuts
     # Key([], "Print", lazy.spawn("prtscr"), desc="Print Screen"),  # TODO enable
@@ -223,7 +232,7 @@ keys = [
 workspaces = [
     {"name": " WEB", "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
     {"name": " DEV", "key": "2", "matches": [Match(wm_class="code")], "lay": "bsp"},
-    {"name": " SYS", "key": "3", "matches": [Match(wm_class="code")], "lay": "bsp"},
+    {"name": " SYS", "key": "3", "matches": [], "lay": "bsp"},
     {
         "name": " DISC",
         "key": "4",
@@ -240,7 +249,7 @@ workspaces = [
     {
         "name": " NOT",
         "key": "7",
-        "matches": [Match(wm_class="TODOsetlater")],
+        "matches": [Match(wm_class="notion-app")],
         "lay": "bsp",
     },
 ]
@@ -383,10 +392,10 @@ def create_bar():
     """Create top bar, defined as function to allow duplication in other monitors"""
     def _separator():
         return widget.Sep(
-            linewidth=0,
-            foreground=colors[2],
+            foreground=colors[18],
             padding=10,
-            size_percent=50,
+            linewidth=2,
+            size_percent=55,
             background=colors[12],
         )
     
@@ -423,9 +432,16 @@ def create_bar():
                 visible_groups=[" DIR", " NOT"],
                 **group_box_settings,
             ),
+            widget.CurrentLayoutIcon(
+                custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+                foreground=colors[2],
+                background=colors[10],
+                padding=10,
+                scale=0.5,
+            ),
             # Middle spacer
+            widget.Clipboard(),
             widget.Spacer(),
-            _separator(),
             # Sound
             widget.TextBox(
                 text="",
