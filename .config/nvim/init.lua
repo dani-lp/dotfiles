@@ -40,4 +40,5 @@ vim.call('plug#end')
 -- catppuccin theme --
 local catppuccin = require('catppuccin')
 catppuccin.setup()
-vim.cmd[[colorscheme catppuccin]]
+-- vim.cmd[[colorscheme catppuccin]] --
+vim.cmd 'colorscheme catppuccin'

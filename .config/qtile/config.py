@@ -1,29 +1,3 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 from libqtile import bar, hook, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
@@ -128,7 +102,7 @@ keys = [
     # qtile
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     # menus
-    Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi.old/config.rasi"), desc="Launch Rofi"),
+    Key([mod], "e", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
     # Key([mod, "shift"], "e", lazy.spawn("power"), desc="Power Menu"),
     # focus, move windows
     Key(
@@ -228,26 +202,46 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 ]
 
+# workspace_names = [
+#     " WEB",
+#     " DEV",
+#     " SYS",
+#     " DISC",
+#     " MUS",
+#     " DIR",
+#     " NOT",
+# ]
+
+workspace_names = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+]
+
 # TODO revise "lay", wm_classes
 workspaces = [
-    {"name": " WEB", "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
-    {"name": " DEV", "key": "2", "matches": [Match(wm_class="code")], "lay": "bsp"},
-    {"name": " SYS", "key": "3", "matches": [], "lay": "bsp"},
+    {"name": workspace_names[0], "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
+    {"name": workspace_names[1], "key": "2", "matches": [Match(wm_class="code")], "lay": "bsp"},
+    {"name": workspace_names[2], "key": "3", "matches": [], "lay": "bsp"},
     {
-        "name": " DISC",
+        "name": workspace_names[3],
         "key": "4",
         "matches": [Match(wm_class="discord")],
         "lay": "bsp",
     },
-    {"name": " MUS", "key": "5", "matches": [Match(wm_class="spotify")], "lay": "bsp"},
+    {"name": workspace_names[4], "key": "5", "matches": [Match(wm_class="spotify")], "lay": "bsp"},
     {
-        "name": " DIR",
+        "name": workspace_names[5],
         "key": "6",
         "matches": [Match(wm_class="org.gnome.Nautilus")],
         "lay": "bsp",
     },
     {
-        "name": " NOT",
+        "name": workspace_names[6],
         "key": "7",
         "matches": [Match(wm_class="notion-app")],
         "lay": "bsp",
@@ -362,14 +356,14 @@ group_box_settings = {
     "block_highlight_text_color": colors[2],
     "borderwidth": 2,
     "disable_drag": True,
-    "fontsize": 12,
+    "fontsize": 14,
     "foreground": colors[18],  # might need a lighter color
     "highlight_color": colors[13],  # TODO revise
     "highlight_method": "line",
     "inactive": colors[14],
     "other_current_screen_border": colors[12],
     "other_screen_border": colors[12],
-    "padding_x": 6,
+    "padding_x": 10,
     "padding_y": 16,
     "rounded": False,
     "this_current_screen_border": colors[2],
@@ -414,22 +408,22 @@ def create_bar():
             # Workspaces
             widget.GroupBox(  # WEB
                 font="Font Awesome 6 Brands",
-                visible_groups=[" WEB"],
+                visible_groups=[workspace_names[0]],
                 **group_box_settings,
             ),
             widget.GroupBox(  # DEV, SYS
                 font="Font Awesome 6 Free Solid",
-                visible_groups=[" DEV", " SYS"],
+                visible_groups=[workspace_names[1], workspace_names[2]],
                 **group_box_settings,
             ),
             widget.GroupBox(  # DISC, MUS
                 font="Font Awesome 6 Brands",
-                visible_groups=[" DISC", " MUS"],
+                visible_groups=[workspace_names[3], workspace_names[4]],
                 **group_box_settings,
             ),
             widget.GroupBox(  # FILE, NOT
                 font="Font Awesome 6 Free Solid",
-                visible_groups=[" DIR", " NOT"],
+                visible_groups=[workspace_names[5], workspace_names[6]],
                 **group_box_settings,
             ),
             widget.CurrentLayoutIcon(
@@ -457,23 +451,6 @@ def create_bar():
                 limit_max_volume="True",
                 # mouse_callbacks={"Button3": open_pavu},
                 padding=8,
-            ),
-            _separator(),
-            # Network
-            widget.TextBox(
-                text="",
-                font="Font Awesome 6 Free Solid",
-                foreground=colors[5],  # fontsize=38
-                background=colors[12],
-                padding=8,
-            ),
-            widget.Net(
-                interface="enp8s0",
-                format="{down} ↓↑ {up}",
-                foreground=colors[5],
-                background=colors[12],
-                prefix="k",
-                padding=5,
             ),
             _separator(),
             # Date
@@ -526,7 +503,7 @@ def create_bar():
 
 screens = [
     Screen(
-        wallpaper="~/Pictures/forrest.png",
+        wallpaper="~/.config/qtile/wallpapers/evening-sky.png",
         wallpaper_mode="fill",
         top=create_bar(),
         bottom=bar.Gap(4),
@@ -534,7 +511,7 @@ screens = [
         right=bar.Gap(4),
     ),
     Screen(
-        wallpaper="~/Pictures/forrest.png",
+        wallpaper="~/.config/qtile/wallpapers/evening-sky-flipped.png",
         wallpaper_mode="fill",
         top=create_bar(),
         bottom=bar.Gap(4),
