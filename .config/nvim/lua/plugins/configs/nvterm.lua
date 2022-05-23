@@ -24,20 +24,9 @@ local options = {
       close_on_exit = true,
       auto_insert = true,
    },
-   mappings = {
-      toggle = {
-         float = "<A-i>",
-         horizontal = "<A-h>",
-         vertical = "<A-v>",
-      },
-      new = {
-         horizontal = "<leader>h",
-         vertical = "<leader>v",
-      },
-   },
    enable_new_mappings = true,
 }
 
-options = require("core.utils").load_override(options, "NvChad/nvterm")
+options = nvchad.load_override(options, "NvChad/nvterm")
 
 nvterm.setup(options)

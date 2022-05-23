@@ -510,14 +510,6 @@ screens = [
         left=bar.Gap(4),
         right=bar.Gap(4),
     ),
-    Screen(
-        wallpaper="~/.config/qtile/wallpapers/evening-sky-flipped.png",
-        wallpaper_mode="fill",
-        top=create_bar(),
-        bottom=bar.Gap(4),
-        left=bar.Gap(4),
-        right=bar.Gap(4),
-    ),
 ]
 
 # Drag floating layouts.

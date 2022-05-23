@@ -1,9 +1,12 @@
 local opt = vim.opt
 local g = vim.g
 
+g.nvchad_theme = nvchad.load_config().ui.theme
+
 -- use filetype.lua instead of filetype.vim
 g.did_load_filetypes = 0
 g.do_filetype_lua = 1
+g.toggle_theme_icon = "   "
 
 opt.confirm = true
 opt.laststatus = 3 -- global statusline
@@ -83,4 +86,4 @@ vim.schedule(function()
 end)
 
 -- load user options if the file exists
-require("core.utils").load_config().options.user()
+nvchad.load_config().options.user()

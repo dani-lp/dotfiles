@@ -4,41 +4,10 @@ if present then
    impatient.enable_profile()
 end
 
-local core_modules = {
-   "core.options",
-   "core.autocmds",
-   "core.mappings",
-}
+require "core"
+require "core.utils"
+require "core.options"
 
-for _, module in ipairs(core_modules) do
-   local ok, err = pcall(require, module)
-   if not ok then
-      error("Error loading " .. module .. "\n\n" .. err)
-   end
-end
-
--- check if custom init.lua file exists
-if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/custom/init.lua") == 1 then
-   -- try to call custom init, if not successful, show error
-   local ok, err = pcall(require, "custom")
-
-   if not ok then
-      vim.notify("Error loading custom/init.lua\n\n" .. err)
-   end
-
-   return
-end
-
--- vim-plug configurations --
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
-
-Plug ('https://github.com/catppuccin/nvim.git', {as = 'catppuccin'})
-
-vim.call('plug#end')
-
--- catppuccin theme --
-local catppuccin = require('catppuccin')
-catppuccin.setup()
--- vim.cmd[[colorscheme catppuccin]] --
-vim.cmd 'colorscheme catppuccin'
+-- setup packer + plugins
+require("core.packer").bootstrap()
+require "plugins"
