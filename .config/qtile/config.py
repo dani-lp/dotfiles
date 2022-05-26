@@ -102,7 +102,7 @@ keys = [
     # qtile
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     # menus
-    Key([mod], "e", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
+    Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi"),
     # Key([mod, "shift"], "e", lazy.spawn("power"), desc="Power Menu"),
     # focus, move windows
     Key(
@@ -376,7 +376,7 @@ group_box_settings = {
 
 # Mouse_callback functions
 def open_launcher():
-    qtile.cmd_spawn("rofi -show drun")
+    qtile.cmd_spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi")
 
 def open_powermenu():
     qtile.cmd_spawn("power")
