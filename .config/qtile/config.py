@@ -501,12 +501,21 @@ def create_bar():
     )
 
 main_screen_bar = create_bar()
+secondary_screen_bar = create_bar()
 
 screens = [
     Screen(
         wallpaper="~/.config/qtile/wallpapers/evening-sky.png",
         wallpaper_mode="fill",
         top=main_screen_bar,
+        bottom=bar.Gap(4),
+        left=bar.Gap(4),
+        right=bar.Gap(4),
+    ),
+    Screen(
+        wallpaper="~/.config/qtile/wallpapers/evening-sky-flipped.png",
+        wallpaper_mode="fill",
+        top=secondary_screen_bar,
         bottom=bar.Gap(4),
         left=bar.Gap(4),
         right=bar.Gap(4),
