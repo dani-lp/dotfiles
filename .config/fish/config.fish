@@ -33,6 +33,9 @@ function save_dots
 
   echo "Copying starship config..."
   /bin/cp -rf ~/.config/starship.toml ~/dev/dotfiles/.config/
+
+  echo "Copying picom config..."
+  /bin/cp -rf ~/.config/picom/ ~/dev/dotfiles/.config
 end
 
 function load_dots
@@ -61,10 +64,14 @@ function load_dots
 
   echo "Loading starship config..."
   /bin/cp -rf ~/dev/dotfiles/.config/starship.toml ~/.config/
+
+  echo "Loading picom config..."
+  /bin/cp -rf ~/dev/dotfiles/.config/picom ~/.config/
 end
 
 # exports
 set PATH "$HOME/.local/Aseprite:$PATH"
+set PATH "$HOME/.cargo/bin:$PATH"
 
 # init starship prompt
 starship init fish | source

@@ -500,12 +500,13 @@ def create_bar():
         opacity=1,
     )
 
+main_screen_bar = create_bar()
 
 screens = [
     Screen(
         wallpaper="~/.config/qtile/wallpapers/evening-sky.png",
         wallpaper_mode="fill",
-        top=create_bar(),
+        top=main_screen_bar,
         bottom=bar.Gap(4),
         left=bar.Gap(4),
         right=bar.Gap(4),
@@ -557,7 +558,11 @@ auto_minimize = False
 # When using the Wayland backend, this can be used to configure input devices.
 # wl_input_rules = None
 
-# TODO hooks
+# TODO take a look at hooks
+@hook.subscribe.startup
+def start():
+    main_screen_bar.window.window.set_property("QTILE_BAR", 1)
+
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser("~")
