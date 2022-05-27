@@ -270,32 +270,7 @@ for workspace in workspaces:
         )
     )
 
-# for i in groups:
-#     keys.extend(
-#         [
-#             # mod1 + letter of group = switch to group
-#             Key(
-#                 [mod],
-#                 i.name,
-#                 lazy.group[i.name].toscreen(),
-#                 desc="Switch to group {}".format(i.name),
-#             ),
-#             # mod1 + shift + letter of group = switch to & move focused window to group
-#             Key(
-#                 [mod, "shift"],
-#                 i.name,
-#                 lazy.window.togroup(i.name, switch_group=True),
-#                 desc="Switch to & move focused window to group {}".format(i.name),
-#             ),
-#             # Or, use below if you prefer not to switch to that group.
-#             # # mod1 + shift + letter of group = move focused window to group
-#             # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-#             #     desc="move focused window to group {}".format(i.name)),
-#         ]
-#     )
-
 # Catppuccin colors
-
 colors = [
     ["#DDB6F2", "#DDB6F2"],  #  0 mauve
     ["#F5C2E7", "#F5C2E7"],  #  1 pink
@@ -323,11 +298,11 @@ colors = [
 layout_theme = {
     "border_width": 2,
     "margin": 2,
-    "border_focus": colors[2][1:],  # REVIEW might have to add second coordinates
-    "border_normal": colors[12][1:],
+    "border_focus": colors[2],
+    "border_normal": colors[12],
     # "font": "JetBrains Mono",
     "font": "FiraCode Nerd Font",
-    "grow_amount": 2,  # TODO tf is this
+    "grow_amount": 1,
 }
 
 # TODO revise every option
@@ -340,7 +315,8 @@ widget_defaults = dict(
     font="FiraCode Nerd Font",
     fontsize=14,
     padding=2,
-    background=colors[13],
+    # background=colors[12],
+    background='#00000000',
     decorations=[
         BorderDecoration(
             colour=colors[8],
@@ -380,6 +356,15 @@ def open_launcher():
 
 def open_powermenu():
     qtile.cmd_spawn("power")
+
+def parse_window_name(text):
+    """Simplifies the names of a few windows, to be displayed in the bar"""
+    target_names = [
+        'Mozilla Firefox',
+        'Visual Studio Code',
+        'Discord',
+    ]
+    return next(filter(lambda name: name in text, target_names), text)
 
 
 def create_bar():
@@ -426,16 +411,35 @@ def create_bar():
                 visible_groups=[workspace_names[5], workspace_names[6]],
                 **group_box_settings,
             ),
+            # Middle spacer
+            widget.Spacer(),
+            # Window name TODO
+            widget.TextBox(
+                text=" ",
+                foreground='#ffffff',
+                background='#00000000',
+                # fontsize=38,
+                font="Font Awesome 6 Free Solid",
+            ),
+            widget.WindowName(
+                background='#00000000',
+                foreground='#ffffff',
+                width=bar.CALCULATED,
+                empty_group_string="Desktop",
+                max_chars=40,
+                parse_text=parse_window_name,
+                # mouse_callbacks={"Button2": function_to_define},
+            ),
+            widget.Spacer(),
+            # WM layout indicator
             widget.CurrentLayoutIcon(
                 custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
                 foreground=colors[2],
-                background=colors[10],
+                background=colors[12],
                 padding=10,
                 scale=0.5,
             ),
-            # Middle spacer
-            widget.Clipboard(),
-            widget.Spacer(),
+            _separator(),
             # Sound
             widget.TextBox(
                 text="",
@@ -453,22 +457,6 @@ def create_bar():
                 padding=8,
             ),
             _separator(),
-            # Date
-            widget.TextBox(
-                text="",
-                font="Font Awesome 6 Free Solid",
-                foreground=colors[7],  # teal
-                # fontsize=38
-                background=colors[12],
-                padding=8,
-            ),
-            widget.Clock(
-                format="%a, %b %d",
-                foreground=colors[7],
-                background=colors[12],
-                padding=8,
-            ),
-            _separator(),
             # Clock
             widget.TextBox(
                 text="",
@@ -479,7 +467,7 @@ def create_bar():
                 padding=8,
             ),
             widget.Clock(
-                format="%I:%M %p",
+                format="%b %d, %H:%M",
                 foreground=colors[8],
                 background=colors[12],
                 padding=8,
@@ -495,9 +483,10 @@ def create_bar():
                 mouse_callbacks={"Button1": open_powermenu},
             ),
         ],
-        32,
-        margin=[6, 6, 6, 6],
+        30,
+        margin=[4, 4, 4, 4],
         opacity=1,
+        background='#00000000'
     )
 
 main_screen_bar = create_bar()
@@ -508,17 +497,17 @@ screens = [
         wallpaper="~/.config/qtile/wallpapers/evening-sky.png",
         wallpaper_mode="fill",
         top=main_screen_bar,
-        bottom=bar.Gap(4),
-        left=bar.Gap(4),
-        right=bar.Gap(4),
+        bottom=bar.Gap(2),
+        left=bar.Gap(2),
+        right=bar.Gap(2),
     ),
     Screen(
         wallpaper="~/.config/qtile/wallpapers/evening-sky-flipped.png",
         wallpaper_mode="fill",
         top=secondary_screen_bar,
-        bottom=bar.Gap(4),
-        left=bar.Gap(4),
-        right=bar.Gap(4),
+        bottom=bar.Gap(2),
+        left=bar.Gap(2),
+        right=bar.Gap(2),
     ),
 ]
 
