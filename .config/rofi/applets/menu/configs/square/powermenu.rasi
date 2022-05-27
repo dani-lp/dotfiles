@@ -24,6 +24,8 @@ configuration {
 window {
     transparency:                   "real";
     border-radius:                  0px;
+    border:                         2px;
+    border-color:                   @accent;
     location:                       center;
     width:                       	800px;
     x-offset:                       0px;
