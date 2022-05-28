@@ -315,8 +315,8 @@ widget_defaults = dict(
     font="FiraCode Nerd Font",
     fontsize=14,
     padding=2,
-    # background=colors[12],
-    background='#00000000',
+    background=colors[12],
+    # background='#00000000',
     decorations=[
         BorderDecoration(
             colour=colors[8],
@@ -417,12 +417,12 @@ def create_bar():
             widget.TextBox(
                 text=" ",
                 foreground='#ffffff',
-                background='#00000000',
+                # background='#00000000',
                 # fontsize=38,
                 font="Font Awesome 6 Free Solid",
             ),
             widget.WindowName(
-                background='#00000000',
+                # background='#00000000',
                 foreground='#ffffff',
                 width=bar.CALCULATED,
                 empty_group_string="Desktop",
