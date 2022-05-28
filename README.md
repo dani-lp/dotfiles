@@ -11,7 +11,7 @@ need to make some modifications specific to your system. Fell free to ask any qu
 - Launcher & powermenu: [Rofi](https://github.com/davatorium/rofi)
 - Browser: Firefox
 - Fonts: FiraCode [Nerd Font](https://github.com/ryanoasis/nerd-fonts) for general text and [Font Awesome 6 Free](https://fontawesome.com/) for bar icons
-- Gtk: [Nordic-darker](https://github.com/EliverLara/Nordic)
+- Gtk: [Orchis](https://github.com/vinceliuice/Orchis-theme)
 - File manager: Nautilus
 - Editor: [Nvchad neovim](https://github.com/NvChad/NvChad), VSCode
 - Fetch: pfetch
