@@ -13,11 +13,11 @@ need to make some modifications specific to your system. Fell free to ask any qu
 - Fonts: FiraCode [Nerd Font](https://github.com/ryanoasis/nerd-fonts) for general text and [Font Awesome 6 Free](https://fontawesome.com/) for bar icons
 - Gtk: [Nordic-darker](https://github.com/EliverLara/Nordic)
 - File manager: Nautilus
-- Editor: [Nvchad neovim](https://github.com/NvChad/NvChad)
-- Fetch: Neofetch
+- Editor: [Nvchad neovim](https://github.com/NvChad/NvChad), VSCode
+- Fetch: pfetch
 - Compositor: [Picom](https://github.com/yshui/picom)
 - Colorscheme: [Catppuccin](https://github.com/catppuccin/catppuccin)
 
 ## Screenshots
-![main](./screenshots/1650648471.png)
-![second](./screenshots/1650648454.png)
+![main](./screenshots/screenshot1.png)
+![second](./screenshots/screenshot2.png)
