@@ -10,6 +10,8 @@ from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
 mod = "mod4"
+shift = "shift"
+alt = "mod1"
 # terminal = guess_terminal()
 terminal = "kitty"
 
@@ -98,12 +100,12 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "q", lazy.window.kill(), desc="Kill active window"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle forward layout"),
-    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Toggle last layout"),
+    Key([mod, shift], "Tab", lazy.prev_layout(), desc="Toggle last layout"),
     # qtile
-    Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([mod, shift], "r", lazy.restart(), desc="Restart Qtile"),
     # menus
     Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi"),
-    # Key([mod, "shift"], "e", lazy.spawn("power"), desc="Power Menu"),
+    Key([mod, shift], "e", lazy.spawn("power"), desc="Power Menu"),
     # focus, move windows
     Key(
         [mod], "Down", lazy.layout.down(), desc="Move focus down in current stack pane"
@@ -119,42 +121,40 @@ keys = [
         desc="Move focus right in current stack pane",
     ),
     Key(
-        [mod, "shift"],
+        [mod, shift],
         "Down",
         lazy.layout.shuffle_down(),
         lazy.layout.move_down(),
         desc="Move windows down in current stack",
     ),
     Key(
-        [mod, "shift"],
+        [mod, shift],
         "Up",
         lazy.layout.shuffle_up(),
         lazy.layout.move_up(),
         desc="Move windows up in current stack",
     ),
     Key(
-        [mod, "shift"],
+        [mod, shift],
         "Left",
         lazy.layout.shuffle_left(),
         lazy.layout.move_left(),
         desc="Move windows left in current stack",
     ),
     Key(
-        [mod, "shift"],
+        [mod, shift],
         "Right",
         lazy.layout.shuffle_right(),
         lazy.layout.move_right(),
         desc="Move windows right in the current stack",
     ),
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle forward layout"),
-    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc="Toggle last layout"),
     # TODO revise layout flipping + swapping
     # window resizing
-    Key([mod, "mod1"], "Left", resize_left, desc="Resize window left"),
-    Key([mod, "mod1"], "Right", resize_right, desc="Resize window Right"),
-    Key([mod, "mod1"], "Up", resize_up, desc="Resize windows upward"),
-    Key([mod, "mod1"], "Down", resize_down, desc="Resize windows downward"),
-    Key([mod, "mod1"], "n", lazy.layout.normalize(), desc="Normalize window size ratios"),
+    Key([mod, alt], "Left", resize_left, desc="Resize window left"),
+    Key([mod, alt], "Right", resize_right, desc="Resize window Right"),
+    Key([mod, alt], "Up", resize_up, desc="Resize windows upward"),
+    Key([mod, alt], "Down", resize_down, desc="Resize windows downward"),
+    Key([mod, alt], "n", lazy.layout.normalize(), desc="Normalize window size ratios"),
     # window states
     Key(
         [mod],
@@ -162,7 +162,7 @@ keys = [
         lazy.window.toggle_maximize(),
         desc="Toggle window between minimum and maximum sizes",
     ),
-    Key([mod, "shift"], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
+    Key([mod, shift], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
     # program launches
     Key([mod], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
@@ -170,9 +170,9 @@ keys = [
     Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
     # TODO rofi variants
     # system shortcuts
-    # Key([], "Print", lazy.spawn("prtscr"), desc="Print Screen"),  # TODO enable
+    Key([], "Print", lazy.spawn("scrot"), desc="Print Screen"),  # TODO enable
     # Key([mod], "Print", lazy.spawn("prtregion -d"), desc="Print region of screen"),   # TODO enable
-    # Key([mod, "shift"], "Print", lazy.spawn("prtregion -c"), desc="Print region of screen to clipboard"), # TODO enable
+    # Key([mod, shift], "Print", lazy.spawn("prtregion -c"), desc="Print region of screen to clipboard"), # TODO enable
     # audio stuff
     Key(
         [],
@@ -197,9 +197,6 @@ keys = [
         [mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"
     ),
     Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
-
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 ]
 
 # workspace_names = [
@@ -263,7 +260,7 @@ for workspace in workspaces:
     )
     keys.append(
         Key(
-            [mod, "shift"],
+            [mod, shift],
             workspace["key"],
             lazy.window.togroup(workspace["name"]),
             desc="Move focused window to another group",
@@ -484,7 +481,7 @@ def create_bar():
             ),
         ],
         30,
-        margin=[4, 4, 4, 4],
+        margin=[4, 4, 2, 4],
         opacity=1,
         background='#00000000'
     )
