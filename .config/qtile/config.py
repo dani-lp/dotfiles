@@ -16,12 +16,13 @@ alt = "mod1"
 terminal = "kitty"
 
 # TODO
-# - dropdown terminal
-# - custom icons for layouts
-# - customize special rofi menus
-# - screenshots
-# - bar functions
+# - dropdown terminal?
+# - custom icons for layouts - DONE
+# - customize special rofi menus - DONE (room for improvement)
+# - screenshots - REVIEW
+# - bar functions - DONE (room for improvement)
 # - qtile hooks
+# - eww bottom section
 # 
 # Take a look at:
 # - Countdown, Memory widget
@@ -106,48 +107,16 @@ keys = [
     # menus
     Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi"),
     Key([mod, shift], "e", lazy.spawn("power"), desc="Power Menu"),
-    # focus, move windows
-    Key(
-        [mod], "Down", lazy.layout.down(), desc="Move focus down in current stack pane"
-    ),
+    # focus, move windows and screens
+    Key([mod], "Down", lazy.layout.down(), desc="Move focus down in current stack pane"),
     Key([mod], "Up", lazy.layout.up(), desc="Move focus up in current stack pane"),
-    Key(
-        [mod], "Left", lazy.layout.left(), desc="Move focus left in current stack pane"
-    ),
-    Key(
-        [mod],
-        "Right",
-        lazy.layout.right(),
-        desc="Move focus right in current stack pane",
-    ),
-    Key(
-        [mod, shift],
-        "Down",
-        lazy.layout.shuffle_down(),
-        lazy.layout.move_down(),
-        desc="Move windows down in current stack",
-    ),
-    Key(
-        [mod, shift],
-        "Up",
-        lazy.layout.shuffle_up(),
-        lazy.layout.move_up(),
-        desc="Move windows up in current stack",
-    ),
-    Key(
-        [mod, shift],
-        "Left",
-        lazy.layout.shuffle_left(),
-        lazy.layout.move_left(),
-        desc="Move windows left in current stack",
-    ),
-    Key(
-        [mod, shift],
-        "Right",
-        lazy.layout.shuffle_right(),
-        lazy.layout.move_right(),
-        desc="Move windows right in the current stack",
-    ),
+    Key([mod], "Left", lazy.layout.left(), desc="Move focus left in current stack pane"),
+    Key([mod], "Right", lazy.layout.right(), desc="Move focus right in current stack pane",),
+    Key([mod, shift], "Down", lazy.layout.shuffle_down(), lazy.layout.move_down(), desc="Move windows down in current stack",),
+    Key([mod, shift], "Up", lazy.layout.shuffle_up(), lazy.layout.move_up(), desc="Move windows up in current stack",),
+    Key([mod, shift], "Left", lazy.layout.shuffle_left(), lazy.layout.move_left(), desc="Move windows left in current stack",),
+    Key([mod, shift], "Right", lazy.layout.shuffle_right(), lazy.layout.move_right(), desc="Move windows right in the current stack",),
+    Key([mod], "l", lazy.next_screen(), desc="Move focus to next monitor",),    # TODO find a better hotkey
     # TODO revise layout flipping + swapping
     # window resizing
     Key([mod, alt], "Left", resize_left, desc="Resize window left"),
@@ -156,13 +125,9 @@ keys = [
     Key([mod, alt], "Down", resize_down, desc="Resize windows downward"),
     Key([mod, alt], "n", lazy.layout.normalize(), desc="Normalize window size ratios"),
     # window states
-    Key(
-        [mod],
-        "m",
-        lazy.window.toggle_maximize(),
-        desc="Toggle window between minimum and maximum sizes",
-    ),
+    Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window between minimum and maximum sizes",),
     Key([mod, shift], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
+    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating mode for a window"),
     # program launches
     Key([mod], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
@@ -170,34 +135,53 @@ keys = [
     Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
     # TODO rofi variants
     # system shortcuts
-    Key([], "Print", lazy.spawn("scrot"), desc="Print Screen"),  # TODO enable
-    # Key([mod], "Print", lazy.spawn("prtregion -d"), desc="Print region of screen"),   # TODO enable
+    Key([], "Print", lazy.spawn("scrot"), desc="Print Screen"),
+    Key([mod], "Print", lazy.spawn("gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png"), desc="Print region of screen"),
+    Key([mod, shift], "s", lazy.spawn("prtscreenregion"), desc="Print region of screen"),
     # Key([mod, shift], "Print", lazy.spawn("prtregion -c"), desc="Print region of screen to clipboard"), # TODO enable
     # audio stuff
-    Key(
-        [],
-        "XF86AudioRaiseVolume",
-        lazy.spawn("./.config/qtile/scripts/temp_vol.sh up"),
-        desc="Increase volume",
-    ),
-    Key(
-        [],
-        "XF86AudioLowerVolume",
-        lazy.spawn("./.config/qtile/scripts/temp_vol.sh down"),
-        desc="Decrease volume",
-    ),
-    Key(
-        [mod],
-        "F5",
-        lazy.spawn("playerctl previous"),
-        desc="Play last audio",
-    ),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh up"), desc="Increase volume",),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh down"), desc="Decrease volume",),
+    Key([mod], "F5", lazy.spawn("playerctl previous"), desc="Play last audio",),
     Key([mod], "F6", lazy.spawn("playerctl next"), desc="Play next audio"),
-    Key(
-        [mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"
-    ),
+    Key([mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
     Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
 ]
+
+def show_keys():
+    key_help = ""
+    for k in keys:
+        mods = ""
+
+        for m in k.modifiers:
+            if m == "mod4":
+                mods += "Super + "
+            else:
+                mods += m.capitalize() + " + "
+
+        if len(k.key) > 1:
+            mods += k.key.capitalize()
+        else:
+            mods += k.key
+
+        key_help += "{:<25} {}".format(mods, k.desc + "\n")
+
+    return key_help
+
+keys.extend(
+    [
+        Key(
+            [mod],
+            "a",
+            lazy.spawn(
+                "sh -c 'echo \""
+                + show_keys()
+                + '" | rofi -dmenu -theme ~/.config/rofi/configTall.rasi -i -p "?"\''
+            ),
+            desc="Print keyboard bindings",
+        ),
+    ]
+)
 
 # workspace_names = [
 #     " WEB",
@@ -224,25 +208,10 @@ workspaces = [
     {"name": workspace_names[0], "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
     {"name": workspace_names[1], "key": "2", "matches": [Match(wm_class="code")], "lay": "bsp"},
     {"name": workspace_names[2], "key": "3", "matches": [], "lay": "bsp"},
-    {
-        "name": workspace_names[3],
-        "key": "4",
-        "matches": [Match(wm_class="discord")],
-        "lay": "bsp",
-    },
+    {"name": workspace_names[3], "key": "4", "matches": [Match(wm_class="discord")], "lay": "bsp"},
     {"name": workspace_names[4], "key": "5", "matches": [Match(wm_class="spotify")], "lay": "bsp"},
-    {
-        "name": workspace_names[5],
-        "key": "6",
-        "matches": [Match(wm_class="org.gnome.Nautilus")],
-        "lay": "bsp",
-    },
-    {
-        "name": workspace_names[6],
-        "key": "7",
-        "matches": [Match(wm_class="notion-app")],
-        "lay": "bsp",
-    },
+    {"name": workspace_names[5], "key": "6", "matches": [Match(wm_class="org.gnome.Nautilus")], "lay": "bsp"},
+    {"name": workspace_names[6], "key": "7", "matches": [Match(wm_class="notion-app")], "lay": "bsp"},
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -379,10 +348,11 @@ def create_bar():
         [
             widget.TextBox(
                 # text=" ",
-                text=" ",
+                text="",
                 font="FiraCode Nerd Font",
-                fontsize=20,
-                foreground=colors[2],
+                fontsize=34,
+                foreground='#ffffff',
+                # foreground=colors[2],
                 background=colors[10],
                 padding=16,
                 mouse_callbacks={"Button1": open_launcher},
@@ -481,7 +451,7 @@ def create_bar():
             ),
         ],
         30,
-        margin=[4, 4, 2, 4],
+        margin=[4, 6, 2, 6],
         opacity=1,
         background='#00000000'
     )
@@ -571,4 +541,4 @@ def start_once():
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "qtile"
