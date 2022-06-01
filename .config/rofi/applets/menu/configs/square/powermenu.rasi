@@ -9,7 +9,7 @@
 
 configuration {
     show-icons:                     false;
-	font:                      		"Comfortaa 14";
+	font:                      		"Fira Code Nerd Font 14";
     disable-history:                false;
 	sidebar-mode: 					false;
 }
@@ -37,7 +37,7 @@ prompt {
     padding:                        10px;
 	background-color: 				@background-light;
 	text-color: 					@accent;
-    border:                  		2px 2px 4px 2px;
+    border:                  		2px 2px 2px 2px;
     border-radius:                  0px;
     border-color:                  	@accent;
 }

@@ -116,7 +116,7 @@ keys = [
     Key([mod, shift], "Up", lazy.layout.shuffle_up(), lazy.layout.move_up(), desc="Move windows up in current stack",),
     Key([mod, shift], "Left", lazy.layout.shuffle_left(), lazy.layout.move_left(), desc="Move windows left in current stack",),
     Key([mod, shift], "Right", lazy.layout.shuffle_right(), lazy.layout.move_right(), desc="Move windows right in the current stack",),
-    Key([mod], "l", lazy.next_screen(), desc="Move focus to next monitor",),    # TODO find a better hotkey
+    Key([mod], "x", lazy.next_screen(), desc="Move focus to next monitor",),    # TODO find a better hotkey
     # TODO revise layout flipping + swapping
     # window resizing
     Key([mod, alt], "Left", resize_left, desc="Resize window left"),
@@ -146,6 +146,8 @@ keys = [
     Key([mod], "F6", lazy.spawn("playerctl next"), desc="Play next audio"),
     Key([mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
     Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
+    #eww
+    Key([mod], "b", lazy.spawn("toggle_eww"), desc="Toggle bottom eww bar visibility",),
 ]
 
 def show_keys():
