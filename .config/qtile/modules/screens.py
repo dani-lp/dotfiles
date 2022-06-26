@@ -6,7 +6,7 @@ from libqtile.config import Screen
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
-from utils.settings import colors, workspace_names
+from utils.settings import colors, two_monitors, wallpaper_main, wallpaper_sec, workspace_names
 
 
 widget_defaults = dict(
@@ -193,19 +193,23 @@ secondary_screen_bar = create_bar()
 
 screens = [
     Screen(
-        wallpaper="~/.config/qtile/wallpapers/evening-sky.png",
+        wallpaper=wallpaper_main,
         wallpaper_mode="fill",
         top=main_screen_bar,
         bottom=bar.Gap(2),
         left=bar.Gap(2),
         right=bar.Gap(2),
     ),
-    Screen(
-        wallpaper="~/.config/qtile/wallpapers/evening-sky-flipped.png",
-        wallpaper_mode="fill",
-        top=secondary_screen_bar,
-        bottom=bar.Gap(2),
-        left=bar.Gap(2),
-        right=bar.Gap(2),
-    ),
 ]
+
+if two_monitors:
+    screens.append(
+        Screen(
+            wallpaper=wallpaper_sec,
+            wallpaper_mode="fill",
+            top=secondary_screen_bar,
+            bottom=bar.Gap(2),
+            left=bar.Gap(2),
+            right=bar.Gap(2),
+        ),
+    )

@@ -42,3 +42,11 @@ workspace_names = [
     "",
     "",
 ]
+
+# General
+wallpaper_main = '~/.config/qtile/wallpapers/evening-sky.png'
+wallpaper_sec = '~/.config/qtile/wallpapers/evening-sky-flipped.png'
+
+# Hardware
+network = 'enp8s0'
+two_monitors = True # number of screens in the system

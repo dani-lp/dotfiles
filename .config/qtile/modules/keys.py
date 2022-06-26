@@ -112,6 +112,7 @@ keys = [
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
     Key([mod], "c", lazy.spawn("code"), desc="Launch VSCode"),
     Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
+    Key([mod], "s", lazy.spawn("spotify"), desc="Launch Spotify"),
     # TODO rofi variants
     # system shortcuts
     Key([], "Print", lazy.spawn("scrot"), desc="Print Screen"),
