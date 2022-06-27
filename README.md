@@ -15,7 +15,7 @@ need to make some modifications specific to your system. Fell free to ask any qu
 - File manager: Nautilus
 - Editor: [Nvchad neovim](https://github.com/NvChad/NvChad), VSCode
 - Fetch: pfetch
-- Compositor: [Picom](https://github.com/yshui/picom)
+- Compositor: [Picom (Jonaburg fork)](https://github.com/jonaburg/picom)
 - Colorscheme: [Catppuccin](https://github.com/catppuccin/catppuccin)
 
 ## Screenshots

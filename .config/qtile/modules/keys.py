@@ -1,10 +1,14 @@
 from libqtile.config import Key
 from libqtile.lazy import lazy
 
+import os
+import subprocess
+
 mod = "mod4"
 shift = "shift"
 alt = "mod1"
 terminal = "kitty"
+home = os.path.expanduser('~')
 
 # resize functions
 def resize(qtile, direction):
@@ -75,6 +79,25 @@ def resize_down(qtile):
         layout.cmd_grow_down()
 
 
+def backlight(action):
+    def f(qtile):
+        brightness = int(subprocess.run(['brightnessctl', 'g'], stdout=subprocess.PIPE).stdout)
+        max_brightness = int(subprocess.run(['brightnessctl', 'm'], stdout=subprocess.PIPE).stdout)
+        step = int(max_brightness / 10)
+
+        if action == 'inc':
+            if brightness < max_brightness - step:
+                subprocess.run(['brightnessctl', 'set', str(brightness + step)], stdout=subprocess.PIPE).stdout
+            else:
+                subprocess.run(['brightnessctl', 'set', str(max_brightness)], stdout=subprocess.PIPE).stdout
+        elif action == 'dec':
+            if brightness > step:
+                subprocess.run(['brightnessctl', 'set', str(brightness - step)], stdout=subprocess.PIPE).stdout
+            else:
+                subprocess.run(['brightnessctl', 'set', '0'], stdout=subprocess.PIPE).stdout
+    return f
+
+
 keys = [
     # essentials
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -85,7 +108,7 @@ keys = [
     Key([mod, shift], "r", lazy.restart(), desc="Restart Qtile"),
     # menus
     Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi"),
-    Key([mod, shift], "e", lazy.spawn("power"), desc="Power Menu"),
+    Key([mod, shift], "e", lazy.spawn("" + home + "/.local/bin/power"), desc="Power Menu"),
     # focus, move windows and screens
     Key([mod], "Down", lazy.layout.down(), desc="Move focus down in current stack pane"),
     Key([mod], "Up", lazy.layout.up(), desc="Move focus up in current stack pane"),
@@ -113,12 +136,10 @@ keys = [
     Key([mod], "c", lazy.spawn("code"), desc="Launch VSCode"),
     Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
     Key([mod], "s", lazy.spawn("spotify"), desc="Launch Spotify"),
-    # TODO rofi variants
-    # system shortcuts
-    Key([], "Print", lazy.spawn("scrot"), desc="Print Screen"),
-    Key([mod], "Print", lazy.spawn("gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png"), desc="Print region of screen"),
-    Key([mod, shift], "s", lazy.spawn("prtscreenregion"), desc="Print region of screen"),
-    # Key([mod, shift], "Print", lazy.spawn("prtregion -c"), desc="Print region of screen to clipboard"), # TODO enable
+    # screenshots
+    Key([], "Print", lazy.spawn("" + home + "/.local/bin/prtscreen"), desc="Print Screen"),
+    Key([mod], "Print", lazy.spawn("" + home + "/.local/bin/prtscreenregion"), desc="Print region of screen"),
+    Key([mod, shift], "s", lazy.spawn("" + home + "/.local/bin/prtscreenregion"), desc="Print region of screen"),
     # audio stuff
     Key([], "XF86AudioRaiseVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh up"), desc="Increase volume",),
     Key([], "XF86AudioLowerVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh down"), desc="Decrease volume",),
@@ -126,8 +147,11 @@ keys = [
     Key([mod], "F6", lazy.spawn("playerctl next"), desc="Play next audio"),
     Key([mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
     Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
-    #eww
-    Key([mod], "b", lazy.spawn("toggle_eww"), desc="Toggle bottom eww bar visibility",),
+    # eww
+    Key([mod], "d", lazy.spawn("" + home + "/.local/bin/toggle_eww"), desc="Toggle eww dashboard",),
+    # brightness
+    Key([], 'XF86MonBrightnessUp', lazy.function(backlight('inc')), desc='Increase brightness'),
+    Key([], 'XF86MonBrightnessDown', lazy.function(backlight('dec')), desc='Decrease brightness'),
 ]
 
 def show_keys():

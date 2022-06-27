@@ -4,7 +4,7 @@ from libqtile.lazy import lazy
 from utils.settings import workspace_names
 from modules.keys import keys, mod, shift
 
-# TODO revise "lay", wm_classes
+# TODO revise "lay"
 workspaces = [
     {"name": workspace_names[0], "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
     {"name": workspace_names[1], "key": "2", "matches": [Match(wm_class="code")], "lay": "bsp"},

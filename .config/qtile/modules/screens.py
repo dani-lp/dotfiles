@@ -1,48 +1,46 @@
 import os
 
-from libqtile import bar, qtile, widget
+from libqtile import bar, qtile
 from libqtile.config import Screen
+from libqtile.lazy import lazy
 
 from qtile_extras import widget
-from qtile_extras.widget.decorations import BorderDecoration
+from qtile_extras.widget.decorations import RectDecoration
 
-from utils.settings import colors, two_monitors, wallpaper_main, wallpaper_sec, workspace_names
+from utils.settings import colors, two_monitors, wallpaper_main, wallpaper_sec, with_battery, workspace_names
+
+import os
+
+home = os.path.expanduser('~')
 
 
 widget_defaults = dict(
     font="FiraCode Nerd Font",
-    fontsize=14,
+    fontsize=15,
     padding=2,
     background=colors[12],
-    # background='#00000000',
-    decorations=[
-        BorderDecoration(
-            colour=colors[8],
-            border_width=[0, 0, 0, 0],
-        )
-    ],
 )
 extension_defaults = widget_defaults.copy()
 
 group_box_settings = {
-    "active": colors[2],  # or [1]
-    "background": colors[12],  # background is [10-12]
-    "block_highlight_text_color": colors[2],
+    "active":                       colors[0],
+    "block_highlight_text_color":   colors[0],
+    "this_current_screen_border":   colors[0],
+    "this_screen_border":           colors[0],
+    "urgent_border":                colors[3],
+    "background":                   colors[12],  # background is [10-12]
+    "other_current_screen_border":  colors[12],
+    "other_screen_border":          colors[12],
+    "highlight_color":              colors[13],
+    "inactive":                     colors[14],
+    "foreground":                   colors[18],
     "borderwidth": 2,
     "disable_drag": True,
     "fontsize": 14,
-    "foreground": colors[18],  # might need a lighter color
-    "highlight_color": colors[13],  # TODO revise
     "highlight_method": "line",
-    "inactive": colors[14],
-    "other_current_screen_border": colors[12],
-    "other_screen_border": colors[12],
     "padding_x": 10,
     "padding_y": 16,
     "rounded": False,
-    "this_current_screen_border": colors[2],
-    "this_screen_border": colors[2],  # or [1], [2]
-    "urgent_border": colors[3],
 }
 
 # Define functions for bar
@@ -53,7 +51,11 @@ def open_launcher():
     qtile.cmd_spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi")
 
 def open_powermenu():
-    qtile.cmd_spawn("power")
+    qtile.cmd_spawn("" + home + "/.local/bin/power")
+
+# TODO fix
+def toggle_maximize():
+    lazy.window.toggle_maximize()
 
 def parse_window_name(text):
     """Simplifies the names of a few windows, to be displayed in the bar"""
@@ -65,28 +67,72 @@ def parse_window_name(text):
     return next(filter(lambda name: name in text, target_names), text)
 
 
+base_decor = {
+    "colour": colors[13],
+    "filled": True,
+    "padding_y": 4,
+    "line_width": 0,
+}
+
+
 def create_bar():
     """Create top bar, defined as function to allow duplication in other monitors"""
     def _separator():
         return widget.Sep(
-            foreground=colors[18],
-            padding=10,
+            # foreground=colors[18],
+            foreground=colors[12],
+            padding=4,
             linewidth=2,
             size_percent=55,
-            background=colors[12],
         )
+    
+    def _full_decor():
+        return RectDecoration(
+            radius=4,
+            **base_decor,
+        )
+    
+    def _left_decor():
+        return RectDecoration(
+            radius=[4, 0, 0, 4],
+            **base_decor,
+        )
+
+    def _right_decor():
+        return RectDecoration(
+            radius=[0, 4, 4, 0],
+            **base_decor,
+        )
+
+    
+    battery_widget = (
+        widget.Battery(
+            format="{char} {percent:2.0%}",
+            charge_char="",
+            discharge_char="",
+            full_char="",
+            unknown_char="",
+            empty_char="",
+            show_short_text=False,
+            foreground=colors[1],
+            padding=8,
+            decorations=[_full_decor()],
+        ),
+        _separator(),
+    ) if with_battery else ()
     
     return bar.Bar(
         [
             widget.TextBox(
                 # text=" ",
-                text="",
+                # text="",
+                text="ﮊ",
                 font="FiraCode Nerd Font",
-                fontsize=34,
-                foreground='#ffffff',
+                fontsize=22,
+                foreground='#000000',
                 # foreground=colors[2],
-                background=colors[10],
-                padding=16,
+                background=colors[0],
+                padding=20,
                 mouse_callbacks={"Button1": open_launcher},
             ),
             # Workspaces
@@ -116,80 +162,79 @@ def create_bar():
             widget.TextBox(
                 text=" ",
                 foreground='#ffffff',
-                # background='#00000000',
-                # fontsize=38,
                 font="Font Awesome 6 Free Solid",
             ),
             widget.WindowName(
-                # background='#00000000',
                 foreground='#ffffff',
                 width=bar.CALCULATED,
                 empty_group_string="Desktop",
                 max_chars=40,
                 parse_text=parse_window_name,
-                # mouse_callbacks={"Button2": function_to_define},
+                mouse_callbacks={"Button1": toggle_maximize},
             ),
             widget.Spacer(),
             # WM layout indicator
             widget.CurrentLayoutIcon(
                 custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
                 foreground=colors[2],
-                background=colors[12],
                 padding=10,
                 scale=0.5,
             ),
             _separator(),
             # Sound
             widget.TextBox(
-                text="",
+                text="墳",
                 foreground=colors[6],
-                background=colors[12],
-                font="Font Awesome 6 Free Solid",
-                # fontsize=38,
+                font="FiraCode Nerd Font",
+                fontsize=20,
                 padding=8,
+                decorations=[_left_decor()],
             ),
             widget.PulseVolume(
                 foreground=colors[6],
-                background=colors[12],
                 limit_max_volume="True",
                 # mouse_callbacks={"Button3": open_pavu},
                 padding=8,
+                decorations=[_right_decor()],
             ),
             _separator(),
+            # Battery
+            *battery_widget,
             # Clock
             widget.TextBox(
-                text="",
-                font="Font Awesome 6 Free Solid",
+                text="",
+                font="FiraCode Nerd Font",
+                fontsize=16,
                 foreground=colors[8],  # blue
-                # fontsize=38
-                background=colors[12],
                 padding=8,
+                decorations=[_left_decor()],
             ),
             widget.Clock(
                 format="%b %d, %H:%M",
                 foreground=colors[8],
-                background=colors[12],
                 padding=8,
+                decorations=[_right_decor()],
             ),
+            _separator(),
             # Power button
             widget.TextBox(
                 text="⏻",
-                background=colors[10],
-                foreground=colors[2],
+                background=colors[0],
+                foreground="#000000",
                 font="Font Awesome 6 Free Solid",
-                fontsize=16,
-                padding=20,
+                fontsize=18,
+                padding=18,
                 mouse_callbacks={"Button1": open_powermenu},
             ),
         ],
         30,
         margin=[4, 6, 2, 6],
         opacity=1,
-        background='#00000000'
     )
 
 main_screen_bar = create_bar()
-secondary_screen_bar = create_bar()
+if two_monitors:
+    secondary_screen_bar = create_bar()
 
 screens = [
     Screen(

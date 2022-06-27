@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="/home/dani/dev/repos/eww/target/release:$PATH"
+export PATH="/home/dani/Desktop/repos/eww/target/release:$PATH"
 
-state=$(eww windows | grep main_bottom)
+state=$(eww windows | grep dashboard)
 
-if [ "$state" == "*main_bottom" ]; then
-    eww close main_bottom
+if [ "$state" == "*dashboard" ]; then
+    eww close dashboard
 else
-    eww open main_bottom
+    eww open dashboard
 fi

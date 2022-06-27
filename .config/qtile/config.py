@@ -32,9 +32,9 @@ auto_minimize = False
 wmname = "qtile"
 
 # TODO take a look at hooks
-@hook.subscribe.startup
-def start():
-    main_screen_bar.window.window.set_property("QTILE_BAR", 1)
+# @hook.subscribe.startup
+# def start():
+#     main_screen_bar.window.window.set_property("QTILE_BAR", 1)
 
 @hook.subscribe.startup_once
 def start_once():

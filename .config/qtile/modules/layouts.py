@@ -6,7 +6,7 @@ from utils.settings import colors
 layout_theme = {
     "border_width": 2,
     "margin": 4,
-    "border_focus": colors[2],
+    "border_focus": colors[0],
     "border_normal": colors[12],
     # "font": "JetBrains Mono",
     "font": "FiraCode Nerd Font",
