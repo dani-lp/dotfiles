@@ -12,8 +12,8 @@ configuration {
 	background-color:            #161320;
   bg:                          #232831;
 	text-color:                  #eceff4;
-	actbg:                       #E8A2AF;
-	urgbg:                       #F28FAD;
+	actbg:                       #DDB6F2;
+	urgbg:                       #DDB6F2;
 	winbg:                       #eceff4;
 
 	selected-normal-foreground:  @bg;
@@ -49,7 +49,7 @@ window {
 	children:	 			[mainbox];
   border-radius: 	0px;
   border: 				2px solid;
-  border-color: 	#E8A2AF;
+  border-color: 	#DDB6F2;
 }
 
 mainbox {

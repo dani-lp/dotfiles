@@ -9,7 +9,7 @@ configuration {
 
 * {
 	background-color:            #2e3440;
-        bg:                          #232831;
+    bg:                          #232831;
 	text-color:                  #eceff4;
 	selbg:                       #81a1c1;
 	actbg:                       #4c566a;
