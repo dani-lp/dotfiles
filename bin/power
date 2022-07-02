@@ -1,0 +1,3 @@
+#!/bin/bash
+
+bash ~/.config/rofi/applets/menu/powermenu.sh
