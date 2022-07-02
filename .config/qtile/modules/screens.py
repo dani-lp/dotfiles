@@ -86,37 +86,73 @@ def create_bar():
             size_percent=55,
         )
     
-    def _full_decor():
-        return RectDecoration(
+    def _full_decor(color):
+        return [RectDecoration(
+            colour=color,
             radius=4,
-            **base_decor,
-        )
+            filled=True,
+            padding_y=3,
+        )]
     
-    def _left_decor():
-        return RectDecoration(
+    # def _left_decor():
+    #     return RectDecoration(
+    #         radius=[4, 0, 0, 4],
+    #         **base_decor,
+    #     )
+
+    # def _right_decor():
+    #     return RectDecoration(
+    #         radius=[0, 4, 4, 0],
+    #         **base_decor,
+    #     )
+
+    def _left_decor(color):
+        return [RectDecoration(
+            colour=color,
             radius=[4, 0, 0, 4],
-            **base_decor,
-        )
-
-    def _right_decor():
-        return RectDecoration(
-            radius=[0, 4, 4, 0],
-            **base_decor,
-        )
-
+            filled=True,
+            padding_y=4,
+        )]
+    
+    def _right_decor(color):
+        return [
+            RectDecoration(
+                colour=colors[10],
+                radius=0,
+                filled=True,
+                padding_y=5,
+                padding_x=0,
+            ),
+            RectDecoration(
+                colour=color,
+                radius=[0, 4, 4, 0],
+                filled=False,
+                line_width=2,
+                padding_y=5,
+                padding_x=0,
+            ),
+        ]
     
     battery_widget = (
+        widget.TextBox(
+            text="",
+            foreground=colors[10],
+            font="FiraCode Nerd Font",
+            fontsize=18,
+            padding=8,
+            decorations=_left_decor(colors[5]),
+        ),
         widget.Battery(
-            format="{char} {percent:2.0%}",
+            format="{percent:2.0%}",
             charge_char="",
             discharge_char="",
             full_char="",
             unknown_char="",
             empty_char="",
             show_short_text=False,
-            foreground=colors[1],
+            foreground=colors[5],
             padding=8,
-            decorations=[_full_decor()],
+            decorations=_right_decor(colors[5]),
         ),
         _separator(),
     ) if with_battery else ()
@@ -126,13 +162,16 @@ def create_bar():
             widget.TextBox(
                 # text=" ",
                 # text="",
-                text="ﮊ",
-                font="FiraCode Nerd Font",
+                # text="ﮊ",
+                # text="",
+                # text="",
+                text="",
+                font="Font Awesome 6 Free Solid",
                 fontsize=22,
                 foreground='#000000',
                 # foreground=colors[2],
                 background=colors[0],
-                padding=20,
+                padding=16,
                 mouse_callbacks={"Button1": open_launcher},
             ),
             # Workspaces
@@ -158,7 +197,7 @@ def create_bar():
             ),
             # Middle spacer
             widget.Spacer(),
-            # Window name TODO
+            # Window name
             widget.TextBox(
                 text=" ",
                 foreground='#ffffff',
@@ -177,43 +216,44 @@ def create_bar():
             widget.CurrentLayoutIcon(
                 custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
                 foreground=colors[2],
-                padding=10,
-                scale=0.5,
+                padding=0,
+                scale=0.6,
+                # decorations=_full_decor(colors[13]),
             ),
             _separator(),
+            # Battery
+            *battery_widget,
             # Sound
             widget.TextBox(
                 text="墳",
-                foreground=colors[6],
+                foreground=colors[10],
                 font="FiraCode Nerd Font",
                 fontsize=20,
                 padding=8,
-                decorations=[_left_decor()],
+                decorations=_left_decor(colors[6]),
             ),
             widget.PulseVolume(
                 foreground=colors[6],
                 limit_max_volume="True",
                 # mouse_callbacks={"Button3": open_pavu},
                 padding=8,
-                decorations=[_right_decor()],
+                decorations=_right_decor(colors[6]),
             ),
             _separator(),
-            # Battery
-            *battery_widget,
             # Clock
             widget.TextBox(
                 text="",
                 font="FiraCode Nerd Font",
                 fontsize=16,
-                foreground=colors[8],  # blue
+                foreground=colors[10],  # blue
                 padding=8,
-                decorations=[_left_decor()],
+                decorations=_left_decor(colors[8]),
             ),
             widget.Clock(
                 format="%b %d, %H:%M",
                 foreground=colors[8],
                 padding=8,
-                decorations=[_right_decor()],
+                decorations=_right_decor(colors[8]),
             ),
             _separator(),
             # Power button
@@ -223,7 +263,7 @@ def create_bar():
                 foreground="#000000",
                 font="Font Awesome 6 Free Solid",
                 fontsize=18,
-                padding=18,
+                padding=16,
                 mouse_callbacks={"Button1": open_powermenu},
             ),
         ],

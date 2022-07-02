@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+export PATH="/home/dani/.local/bin:$PATH"
 
 picom -b &
 eww daemon &

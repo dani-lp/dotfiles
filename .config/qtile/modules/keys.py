@@ -109,6 +109,7 @@ keys = [
     # menus
     Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi"),
     Key([mod, shift], "e", lazy.spawn("" + home + "/.local/bin/power"), desc="Power Menu"),
+    Key([mod, shift], "n", lazy.spawn("" + home + "/.local/bin/nmgui"), desc="Network Menu"),
     # focus, move windows and screens
     Key([mod], "Down", lazy.layout.down(), desc="Move focus down in current stack pane"),
     Key([mod], "Up", lazy.layout.up(), desc="Move focus up in current stack pane"),
@@ -143,10 +144,11 @@ keys = [
     # audio stuff
     Key([], "XF86AudioRaiseVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh up"), desc="Increase volume",),
     Key([], "XF86AudioLowerVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh down"), desc="Decrease volume",),
-    Key([mod], "F5", lazy.spawn("playerctl previous"), desc="Play last audio",),
-    Key([mod], "F6", lazy.spawn("playerctl next"), desc="Play next audio"),
-    Key([mod], "F7", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
-    Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
+    Key([], "XF86AudioMute", lazy.spawn("./.config/qtile/scripts/temp_vol.sh mute"), desc="Toggle volume mute",),
+    Key([mod], "F8", lazy.spawn("playerctl previous"), desc="Play last audio",),
+    Key([mod], "F10", lazy.spawn("playerctl next"), desc="Play next audio"),
+    Key([mod], "F9", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
+    # Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
     # eww
     Key([mod], "d", lazy.spawn("" + home + "/.local/bin/toggle_eww"), desc="Toggle eww dashboard",),
     # brightness
