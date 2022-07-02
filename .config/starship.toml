@@ -6,3 +6,77 @@ format = "[$duration]($style)"
 
 [line_break]
 disabled = true
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+format = 'via [$symbol]($style)'
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+format = 'via [$symbol]($style)'
+
+[julia]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+format = 'via [$symbol]($style)'
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+format = 'via [$symbol]($style)'
+
+[spack]
+symbol = "🅢 "
+
+[rust]
+symbol = " "
+format = 'via [$symbol]($style)'
