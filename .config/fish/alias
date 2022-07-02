@@ -33,8 +33,8 @@ alias y='echo Hey $USERNAME, you can stop spamming Y'
 alias diskspace='du -S | sort -n -r |more'
 alias topdf='libreoffice --headless --invisible --convert-to pdf'
 alias toilet='toilet -f mono12 -F metal'
-alias bat='batcat'
-
+alias pacman='sudo pacman'
+alias shistory='history | grep'
 
 # Quickly load bashrc
 alias gogo='source ~/.bashrc'
