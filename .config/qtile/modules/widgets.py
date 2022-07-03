@@ -1,4 +1,4 @@
-from libqtile import bar
+from libqtile import bar, qtile
 
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
@@ -7,7 +7,7 @@ from utils.settings import colors, with_battery, workspace_names
 
 import os
 
-home = os.path.expanduser('~')
+home = os.path.expanduser("~")
 
 group_box_settings = {
     "active": colors[0],
@@ -80,7 +80,7 @@ def _full_decor(color):
             colour=color,
             radius=4,
             filled=True,
-            padding_y=3,
+            padding_y=4,
         )
     ]
 
@@ -251,4 +251,32 @@ w_power = widget.TextBox(
     fontsize=18,
     padding=16,
     mouse_callbacks={"Button1": open_powermenu},
+)
+
+w_wlan_1 = widget.Wlan(
+    format="直",
+    foreground=colors[10],
+    disconnected_message="睊",
+    fontsize=16,
+    interface="wlo1",
+    update_interval=5,
+    mouse_callbacks={
+        "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
+        # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
+    },
+    padding=8,
+    decorations=_left_decor(colors[2]),
+)
+
+w_wlan_2 = widget.Wlan(
+    format="{percent:2.0%}",
+    disconnected_message=" ",
+    interface="wlo1",
+    update_interval=5,
+    mouse_callbacks={
+        "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
+        # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
+    },
+    padding=8,
+    decorations=_right_decor(colors[2]),
 )

@@ -1,6 +1,8 @@
 from libqtile import bar
 from libqtile.config import Screen
 
+from qtile_extras import widget
+
 from modules.widgets import *
 from utils.settings import colors, two_monitors, wallpaper_main, wallpaper_sec
 
@@ -24,12 +26,17 @@ def create_bar():
             w_groupbox_2,
             w_groupbox_3,
             w_groupbox_4,
-            # Middle spacer
+
+            # Left spacer
             w_spacer_1,
+
             # Window name
             w_window_name_icon,
             w_window_name,
+            
+            # Right spacer
             w_spacer_2,
+
             # WM layout indicator
             w_current_layout_icon,
             separator(),
@@ -39,16 +46,36 @@ def create_bar():
             w_volume_icon,
             w_volume,
             separator(),
+            w_wlan_1,
+            w_wlan_2,
+            separator(),
             # Clock
             w_clock_icon,
             w_clock,
             separator(),
+            # w_wifi,
+            # widget.WidgetBox(
+            #     close_button_location="right",
+            #     fontsize=24,
+            #     text_open=" ",
+            #     text_closed=" ",
+            #     widgets=[
+            #         *w_battery,
+            #         # Sound
+            #         w_volume_icon,
+            #         w_volume,
+            #         separator(),
+            #         # Clock
+            #         w_clock_icon,
+            #         w_clock,
+            #         separator(),
+            #     ],
+            # ),
             # Power button
             w_power,
         ],
         30,
         margin=[4, 6, 2, 6],
-        opacity=1,
     )
 
 
