@@ -32,7 +32,10 @@ for workspace in workspaces:
         Key(
             [mod, shift],
             workspace["key"],
-            lazy.window.togroup(workspace["name"]),
+            *(
+                lazy.window.togroup(workspace["name"]),
+                lazy.group[workspace["name"]].toscreen(toggle=True),
+            ),
             desc="Move focused window to another group",
         )
     )
