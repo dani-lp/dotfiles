@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PATH="/home/dani/Desktop/repos/lib/eww/target/release:$PATH"
+
+state=$(eww windows | grep calendar)
+
+if [ "$state" == "*calendar" ]; then
+    eww close calendar 
+else
+    eww open calendar 
+fi
