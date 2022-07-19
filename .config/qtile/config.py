@@ -9,15 +9,8 @@ from modules.screens import screens, main_screen_bar, widget_defaults
 
 # TODOs
 # - dropdown terminal?
-# - custom icons for layouts - DONE
 # - customize special rofi menus - DONE (room for improvement)
-# - screenshots - REVIEW
-# - bar functions - DONE (room for improvement)
 # - qtile hooks
-# - eww bottom section
-# 
-# Take a look at:
-# - Countdown, Memory widget
 
 # REVIEW options
 dgroups_key_binder = None

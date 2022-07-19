@@ -8,8 +8,7 @@ layout_theme = {
     "margin": 4,
     "border_focus": colors[0],
     "border_normal": colors[12],
-    # "font": "JetBrains Mono",
-    "font": "FiraCode Nerd Font",
+    "font": "JetBrainsMono Nerd Font",
     "grow_amount": 1,
 }
 

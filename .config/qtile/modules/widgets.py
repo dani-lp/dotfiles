@@ -1,4 +1,4 @@
-from libqtile import bar, qtile
+from libqtile import bar, qtile, lazy
 
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
@@ -39,6 +39,10 @@ def open_powermenu():
     qtile.cmd_spawn("" + home + "/.local/bin/power")
 
 
+def open_calendar():
+    qtile.cmd_spawn("" + home + "/.local/bin/toggle_cal")
+
+
 # TODO fix
 def toggle_maximize():
     lazy.window.toggle_maximize()
@@ -60,7 +64,15 @@ def separator():
         # foreground=colors[18],
         foreground=colors[12],
         padding=4,
-        linewidth=2,
+        linewidth=3,
+    )
+
+def separator_sm():
+    return widget.Sep(
+        # foreground=colors[18],
+        foreground=colors[12],
+        padding=1,
+        linewidth=1,
         size_percent=55,
     )
 
@@ -85,11 +97,42 @@ def _full_decor(color):
     ]
 
 
+# def _left_decor(color):
+#     return [
+#         RectDecoration(
+#             colour=color,
+#             radius=[4, 0, 0, 4],
+#             filled=True,
+#             padding_y=4,
+#         )
+#     ]
+
+
+# def _right_decor(color):
+#     return [
+#         RectDecoration(
+#             colour=colors[10],
+#             radius=0,
+#             filled=True,
+#             padding_y=5,
+#             padding_x=0,
+#         ),
+#         RectDecoration(
+#             colour=color,
+#             radius=[0, 4, 4, 0],
+#             filled=False,
+#             line_width=2,
+#             padding_y=5,
+#             padding_x=0,
+#         ),
+#     ]
+
+
 def _left_decor(color):
     return [
         RectDecoration(
             colour=color,
-            radius=[4, 0, 0, 4],
+            radius=4,
             filled=True,
             padding_y=4,
         )
@@ -99,23 +142,16 @@ def _left_decor(color):
 def _right_decor(color):
     return [
         RectDecoration(
-            colour=colors[10],
-            radius=0,
+            colour=colors[13],
+            radius=4,
             filled=True,
-            padding_y=5,
+            padding_y=4,
             padding_x=0,
-        ),
-        RectDecoration(
-            colour=color,
-            radius=[0, 4, 4, 0],
-            filled=False,
-            line_width=2,
-            padding_y=5,
-            padding_x=0,
-        ),
+        )
     ]
 
 
+# left icon
 w_sys_icon = widget.TextBox(
     # text=" ",
     # text="",
@@ -132,6 +168,7 @@ w_sys_icon = widget.TextBox(
     mouse_callbacks={"Button1": open_launcher},
 )
 
+# workspace groups
 w_groupbox_1 = widget.GroupBox(  # WEB
     font="Font Awesome 6 Brands",
     visible_groups=[workspace_names[0]],
@@ -156,9 +193,11 @@ w_groupbox_4 = widget.GroupBox(  # FILE, NOT
     **group_box_settings,
 )
 
+# spacers
 w_spacer_1 = widget.Spacer()
 w_spacer_2 = widget.Spacer()
 
+# window name
 w_window_name_icon = widget.TextBox(
     text=" ",
     foreground="#ffffff",
@@ -174,23 +213,39 @@ w_window_name = widget.WindowName(
     mouse_callbacks={"Button1": toggle_maximize},
 )
 
+# current layout
+w_current_layout_icon = widget.CurrentLayoutIcon(
+    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+    padding=0,
+    scale=0.6,
+    # decorations=_full_decor(colors[13]),
+)
+
+# systray
+w_systray = widget.Systray(
+   padding=5,
+)
+
+
+# battery
 w_battery = (
     (
-        widget.TextBox(
-            text="",
-            foreground=colors[10],
-            font="FiraCode Nerd Font",
-            fontsize=18,
-            padding=8,
-            decorations=_left_decor(colors[5]),
-        ),
         widget.Battery(
-            format="{percent:2.0%}",
+            format="{char}",
             charge_char="",
             discharge_char="",
             full_char="",
             unknown_char="",
             empty_char="",
+            show_short_text=False,
+            foreground=colors[10],
+            fontsize=18,
+            padding=8,
+            decorations=_left_decor(colors[5]),
+        ),
+        separator_sm(),
+        widget.Battery(
+            format="{percent:2.0%}",
             show_short_text=False,
             foreground=colors[5],
             padding=8,
@@ -202,18 +257,11 @@ w_battery = (
     else ()
 )
 
-w_current_layout_icon = widget.CurrentLayoutIcon(
-    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-    foreground=colors[2],
-    padding=0,
-    scale=0.6,
-    # decorations=_full_decor(colors[13]),
-)
-
+# volume
 w_volume_icon = widget.TextBox(
     text="墳",
     foreground=colors[10],
-    font="FiraCode Nerd Font",
+    font="JetBrainsMono Nerd Font",
     fontsize=20,
     padding=8,
     decorations=_left_decor(colors[6]),
@@ -227,32 +275,7 @@ w_volume = widget.PulseVolume(
     decorations=_right_decor(colors[6]),
 )
 
-w_clock_icon = widget.TextBox(
-    text="",
-    font="FiraCode Nerd Font",
-    fontsize=16,
-    foreground=colors[10],  # blue
-    padding=8,
-    decorations=_left_decor(colors[8]),
-)
-
-w_clock = widget.Clock(
-    format="%b %d, %H:%M",
-    foreground=colors[8],
-    padding=8,
-    decorations=_right_decor(colors[8]),
-)
-
-w_power = widget.TextBox(
-    text="⏻",
-    background=colors[0],
-    foreground="#000000",
-    font="Font Awesome 6 Free Solid",
-    fontsize=18,
-    padding=16,
-    mouse_callbacks={"Button1": open_powermenu},
-)
-
+# internet
 w_wlan_1 = widget.Wlan(
     format="直",
     foreground=colors[10],
@@ -279,4 +302,34 @@ w_wlan_2 = widget.Wlan(
     },
     padding=8,
     decorations=_right_decor(colors[2]),
+)
+
+# time, calendar
+w_clock_icon = widget.TextBox(
+    text="",
+    font="JetBrainsMono Nerd Font",
+    fontsize=16,
+    foreground=colors[10],  # blue
+    padding=8,
+    decorations=_left_decor(colors[8]),
+    mouse_callbacks={"Button1": open_calendar},
+)
+
+w_clock = widget.Clock(
+    format="%b %d, %H:%M",
+    foreground=colors[8],
+    padding=8,
+    decorations=_right_decor(colors[8]),
+    mouse_callbacks={"Button1": open_calendar},
+)
+
+# power menu
+w_power = widget.TextBox(
+    text="⏻",
+    background=colors[0],
+    foreground="#000000",
+    font="Font Awesome 6 Free Solid",
+    fontsize=18,
+    padding=16,
+    mouse_callbacks={"Button1": open_powermenu},
 )

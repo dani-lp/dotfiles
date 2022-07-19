@@ -33,11 +33,11 @@ i3lock \
     --wrong-text="Wrong Password!" \
     --noinput-text="" \
     --greeter-text="Type the password to unlock" \
-    --time-font="FiraCode Nerd Font" \
-    --date-font="FiraCode Nerd Font" \
-    --verif-font="FiraCode Nerd Font" \
-    --greeter-font="FiraCode Nerd Font" \
-    --wrong-font="FiraCode Nerd Font" \
+    --time-font="JetBrainsMono Nerd Font" \
+    --date-font="JetBrainsMono Nerd Font" \
+    --verif-font="JetBrainsMono Nerd Font" \
+    --greeter-font="JetBrainsMono Nerd Font" \
+    --wrong-font="JetBrainsMono Nerd Font" \
     --verif-size=23 \
     --greeter-size=23 \
     --wrong-size=23 \

@@ -8,7 +8,7 @@ from utils.settings import colors, two_monitors, wallpaper_main, wallpaper_sec
 
 
 widget_defaults = dict(
-    font="FiraCode Nerd Font",
+    font="JetBrainsMono Nerd Font",
     fontsize=15,
     padding=2,
     background=colors[12],
@@ -39,18 +39,23 @@ def create_bar():
 
             # WM layout indicator
             w_current_layout_icon,
+            w_systray,
             separator(),
             # Battery
             *w_battery,
             # Sound
             w_volume_icon,
+            separator_sm(),
             w_volume,
             separator(),
+            # Wlan
             w_wlan_1,
+            separator_sm(),
             w_wlan_2,
             separator(),
             # Clock
             w_clock_icon,
+            separator_sm(),
             w_clock,
             separator(),
             # w_wifi,

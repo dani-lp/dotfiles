@@ -130,13 +130,14 @@ keys = [
     # window states
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window between minimum and maximum sizes",),
     Key([mod, shift], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
-    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating mode for a window"),
+    Key([mod], "i", lazy.window.toggle_floating(), desc="Toggle floating mode for a window"),
     # program launches
     Key([mod], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
     Key([mod], "c", lazy.spawn("code"), desc="Launch VSCode"),
     Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
     Key([mod], "s", lazy.spawn("spotify"), desc="Launch Spotify"),
+    Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
     # screenshots
     Key([], "Print", lazy.spawn("" + home + "/.local/bin/prtscreen"), desc="Print Screen"),
     Key([mod], "Print", lazy.spawn("" + home + "/.local/bin/prtscreenregion"), desc="Print region of screen"),
@@ -145,9 +146,9 @@ keys = [
     Key([], "XF86AudioRaiseVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh up"), desc="Increase volume",),
     Key([], "XF86AudioLowerVolume", lazy.spawn("./.config/qtile/scripts/temp_vol.sh down"), desc="Decrease volume",),
     Key([], "XF86AudioMute", lazy.spawn("./.config/qtile/scripts/temp_vol.sh mute"), desc="Toggle volume mute",),
-    Key([mod], "F8", lazy.spawn("playerctl previous"), desc="Play last audio",),
-    Key([mod], "F10", lazy.spawn("playerctl next"), desc="Play next audio"),
-    Key([mod], "F9", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc="Play last audio",),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc="Play next audio"),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Toggle play/pause audio"),
     # Key([mod], "F8", lazy.spawn("playerctl stop"), desc="Stop audio"),
     # eww
     Key([mod], "d", lazy.spawn("" + home + "/.local/bin/toggle_eww"), desc="Toggle eww dashboard",),
@@ -184,7 +185,7 @@ keys.extend(
             lazy.spawn(
                 "sh -c 'echo \""
                 + show_keys()
-                + '" | rofi -dmenu -theme ~/.config/rofi/configTall.rasi -i -p "?"\''
+                + '" | rofi -dmenu -theme ~/.config/rofi/configTall.rasi -i -p ""\''
             ),
             desc="Print keyboard bindings",
         ),
