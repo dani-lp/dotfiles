@@ -1,0 +1,22 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;								Windows Section's								  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defwindow dashboard
+    :monitor 0
+    :geometry (geometry :x "0"
+                        :y "0"
+                        :anchor "center")
+    :stacking "fg"
+    :windowtype "dock"
+    :wm-ignore true
+(dashboard))
+
+;; Calendar Windows ;;
+(defwindow calendar
+    :geometry (geometry :x "1566px" 
+                        :y "4%" 
+                        :width "270px" 
+                        :height "60px")
+(cal))

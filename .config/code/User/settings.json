@@ -1,0 +1,30 @@
+{
+    "editor.fontFamily": "'JetBrainsMono Nerd Font'",
+    "editor.fontSize": 14,
+    "editor.letterSpacing": 0.4,
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.minimap.enabled": false,
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[typescriptreact]": {
+        "editor.tabSize": 2
+    },
+    "[typescript]": {
+        "editor.tabSize": 2
+    },
+    "[python]": {
+        "editor.tabSize": 4
+    },
+    "window.menuBarVisibility": "toggle",
+    "workbench.colorTheme": "Catppuccin",
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
+    "python.formatting.provider": "black",
+    "redhat.telemetry.enabled": false,
+    "workbench.useExperimentalGridLayout": true,
+    "customizeUI.activityBar": "bottom",
+}
