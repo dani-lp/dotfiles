@@ -5,6 +5,7 @@ import os
 import subprocess
 
 mod = "mod4"
+control = "control"
 shift = "shift"
 alt = "mod1"
 terminal = "kitty"
@@ -120,7 +121,10 @@ keys = [
     Key([mod, shift], "Left", lazy.layout.shuffle_left(), lazy.layout.move_left(), desc="Move windows left in current stack",),
     Key([mod, shift], "Right", lazy.layout.shuffle_right(), lazy.layout.move_right(), desc="Move windows right in the current stack",),
     Key([mod], "x", lazy.next_screen(), desc="Move focus to next monitor",),    # TODO find a better hotkey
-    # TODO revise layout flipping + swapping
+    Key([mod, control], "Down", lazy.layout.flip_down(), desc="Flip layout down"),
+    Key([mod, control], "Up", lazy.layout.flip_up(), desc="Flip layout up"),
+    Key([mod, control], "Left", lazy.layout.flip_left(), lazy.layout.swap_column_left(), desc="Flip layout left"),
+    Key([mod, control], "Right", lazy.layout.flip_right(), lazy.layout.swap_column_left(), desc="Flip layout right"),
     # window resizing
     Key([mod, alt], "Left", resize_left, desc="Resize window left"),
     Key([mod, alt], "Right", resize_right, desc="Resize window Right"),

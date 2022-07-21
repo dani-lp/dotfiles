@@ -3,7 +3,7 @@ from libqtile import bar, qtile, lazy
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 
-from utils.settings import colors, with_battery, workspace_names
+from utils.settings import colors, with_battery, with_wlan, workspace_names
 
 import os
 
@@ -40,7 +40,7 @@ def open_powermenu():
 
 
 def open_calendar():
-    qtile.cmd_spawn("" + home + "/.local/bin/toggle_cal")
+    qtile.cmd_spawn("" + home + "/home/dani/.local/bin/toggle_cal")
 
 
 # TODO fix
@@ -66,6 +66,7 @@ def separator():
         padding=4,
         linewidth=3,
     )
+
 
 def separator_sm():
     return widget.Sep(
@@ -128,13 +129,14 @@ def _full_decor(color):
 #     ]
 
 
-def _left_decor(color):
+def _left_decor(color, padding_x=None, padding_y=4):
     return [
         RectDecoration(
             colour=color,
             radius=4,
             filled=True,
-            padding_y=4,
+            padding_x=padding_x,
+            padding_y=padding_y,
         )
     ]
 
@@ -150,6 +152,15 @@ def _right_decor(color):
         )
     ]
 
+
+# hollow knight icon
+w_hk = widget.Image(
+    background=colors[0],
+    margin_x=14,
+    margin_y=3,
+    mouse_callbacks={"Button1": open_launcher},
+    filename="~/.config/qtile/icons/hkskull.png",
+)
 
 # left icon
 w_sys_icon = widget.TextBox(
@@ -193,9 +204,36 @@ w_groupbox_4 = widget.GroupBox(  # FILE, NOT
     **group_box_settings,
 )
 
+
+def gen_groupbox():
+    return (
+        widget.GroupBox(  # WEB
+            font="Font Awesome 6 Brands",
+            visible_groups=[workspace_names[0]],
+            **group_box_settings,
+        ),
+        widget.GroupBox(  # DEV, SYS
+            font="Font Awesome 6 Free Solid",
+            visible_groups=[workspace_names[1], workspace_names[2]],
+            **group_box_settings,
+        ),
+        widget.GroupBox(  # DISC, MUS
+            font="Font Awesome 6 Brands",
+            visible_groups=[workspace_names[3], workspace_names[4]],
+            **group_box_settings,
+        ),
+        widget.GroupBox(  # FILE, NOT
+            font="Font Awesome 6 Free Solid",
+            visible_groups=[workspace_names[5], workspace_names[6]],
+            **group_box_settings,
+        ),
+    )
+
+
 # spacers
-w_spacer_1 = widget.Spacer()
-w_spacer_2 = widget.Spacer()
+def gen_spacer():
+    return widget.Spacer()
+
 
 # window name
 w_window_name_icon = widget.TextBox(
@@ -213,18 +251,32 @@ w_window_name = widget.WindowName(
     mouse_callbacks={"Button1": toggle_maximize},
 )
 
-# current layout
-w_current_layout_icon = widget.CurrentLayoutIcon(
-    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-    padding=0,
-    scale=0.6,
-    # decorations=_full_decor(colors[13]),
-)
-
 # systray
 w_systray = widget.Systray(
-   padding=5,
+    padding=5,
 )
+
+# current layout
+def gen_current_layout():
+    color = colors[5]
+
+    return (
+        widget.CurrentLayoutIcon(
+            custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+            padding=3,
+            scale=0.65,
+            use_mask=True,
+            foreground=colors[12],
+            decorations=_left_decor(color),
+        ),
+        separator_sm(),
+        widget.CurrentLayout(
+            foreground=color,
+            padding=8,
+            decorations=_right_decor(color),
+        ),
+        separator(),
+    )
 
 
 # battery
@@ -276,52 +328,66 @@ w_volume = widget.PulseVolume(
 )
 
 # internet
-w_wlan_1 = widget.Wlan(
-    format="直",
-    foreground=colors[10],
-    disconnected_message="睊",
-    fontsize=16,
-    interface="wlo1",
-    update_interval=5,
-    mouse_callbacks={
-        "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
-        # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
-    },
-    padding=8,
-    decorations=_left_decor(colors[2]),
-)
-
-w_wlan_2 = widget.Wlan(
-    format="{percent:2.0%}",
-    disconnected_message=" ",
-    interface="wlo1",
-    update_interval=5,
-    mouse_callbacks={
-        "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
-        # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
-    },
-    padding=8,
-    decorations=_right_decor(colors[2]),
+w_wlan = (
+    (
+        widget.Wlan(
+            format="直",
+            foreground=colors[10],
+            disconnected_message="睊",
+            fontsize=16,
+            interface="wlo1",
+            update_interval=5,
+            mouse_callbacks={
+                "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
+                # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
+            },
+            padding=8,
+            decorations=_left_decor(colors[2]),
+        ),
+        separator_sm(),
+        widget.Wlan(
+            format="{percent:2.0%}",
+            disconnected_message=" ",
+            interface="wlo1",
+            update_interval=5,
+            mouse_callbacks={
+                "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
+                # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
+            },
+            padding=8,
+            decorations=_right_decor(colors[2]),
+        ),
+        separator(),
+    )
+    if with_wlan
+    else ()
 )
 
 # time, calendar
-w_clock_icon = widget.TextBox(
-    text="",
-    font="JetBrainsMono Nerd Font",
-    fontsize=16,
-    foreground=colors[10],  # blue
-    padding=8,
-    decorations=_left_decor(colors[8]),
-    mouse_callbacks={"Button1": open_calendar},
-)
+def gen_clock():
+    color = colors[8]
 
-w_clock = widget.Clock(
-    format="%b %d, %H:%M",
-    foreground=colors[8],
-    padding=8,
-    decorations=_right_decor(colors[8]),
-    mouse_callbacks={"Button1": open_calendar},
-)
+    return (
+        widget.TextBox(
+            text="",
+            font="JetBrainsMono Nerd Font",
+            fontsize=16,
+            foreground=colors[10],  # blue
+            padding=8,
+            decorations=_left_decor(color),
+            mouse_callbacks={"Button1": open_calendar},
+        ),
+        separator_sm(),
+        widget.Clock(
+            format="%b %d, %H:%M",
+            foreground=color,
+            padding=8,
+            decorations=_right_decor(color),
+            mouse_callbacks={"Button1": open_calendar},
+        ),
+        separator(),
+    )
+
 
 # power menu
 w_power = widget.TextBox(
@@ -332,4 +398,14 @@ w_power = widget.TextBox(
     fontsize=18,
     padding=16,
     mouse_callbacks={"Button1": open_powermenu},
+)
+
+w_test = widget.WidgetBox(
+    close_button_location="right",
+    fontsize=24,
+    font="JetBrainsMono Nerd Font",
+    text_open=" ",
+    text_closed=" ",
+    widgets=[w_systray],
+    decorations=_left_decor(colors[2]),
 )

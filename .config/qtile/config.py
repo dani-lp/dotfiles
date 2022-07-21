@@ -8,7 +8,6 @@ from modules.layouts import layouts, floating_layout
 from modules.screens import screens, main_screen_bar, widget_defaults
 
 # TODOs
-# - dropdown terminal?
 # - customize special rofi menus - DONE (room for improvement)
 # - qtile hooks
 
@@ -19,7 +18,7 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
-focus_on_window_activation = "smart"  # TODO check using "focus" instead of "smart"
+focus_on_window_activation = "smart"
 # reconfigure_screens = True
 auto_minimize = False
 wmname = "qtile"

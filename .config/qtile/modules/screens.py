@@ -16,66 +16,47 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 
-def create_bar():
+def create_bar(extra_bar = False):
     """Create top bar, defined as function to allow duplication in other monitors"""
     return bar.Bar(
         [
-            w_sys_icon,
+            # w_sys_icon,
+            w_hk,
             # Workspaces
-            w_groupbox_1,
-            w_groupbox_2,
-            w_groupbox_3,
-            w_groupbox_4,
+            *gen_groupbox(),
 
             # Left spacer
-            w_spacer_1,
+            gen_spacer(),
 
             # Window name
             w_window_name_icon,
             w_window_name,
             
             # Right spacer
-            w_spacer_2,
+            gen_spacer(),
 
-            # WM layout indicator
-            w_current_layout_icon,
-            w_systray,
+            # hidden systray
+            *((w_systray,) if not extra_bar else ()),
             separator(),
+
+            # WM layout indicator TODO improve
+            *gen_current_layout(),
+
             # Battery
             *w_battery,
+
             # Sound
             w_volume_icon,
             separator_sm(),
             w_volume,
             separator(),
+
             # Wlan
-            w_wlan_1,
-            separator_sm(),
-            w_wlan_2,
-            separator(),
+            *w_wlan,
+
             # Clock
-            w_clock_icon,
-            separator_sm(),
-            w_clock,
-            separator(),
-            # w_wifi,
-            # widget.WidgetBox(
-            #     close_button_location="right",
-            #     fontsize=24,
-            #     text_open=" ",
-            #     text_closed=" ",
-            #     widgets=[
-            #         *w_battery,
-            #         # Sound
-            #         w_volume_icon,
-            #         w_volume,
-            #         separator(),
-            #         # Clock
-            #         w_clock_icon,
-            #         w_clock,
-            #         separator(),
-            #     ],
-            # ),
+            *gen_clock(),
+
             # Power button
             w_power,
         ],
@@ -86,7 +67,7 @@ def create_bar():
 
 main_screen_bar = create_bar()
 if two_monitors:
-    secondary_screen_bar = create_bar()
+    secondary_screen_bar = create_bar(True)
 
 screens = [
     Screen(
