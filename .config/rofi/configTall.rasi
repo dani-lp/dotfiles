@@ -1,16 +1,16 @@
 configuration {
-	display-drun:    								" Apps";
-	display-window:  								"缾";
-	display-windowcd:  							"缾";
-	display-file-browser-extended: 	"";
-	display-dmenu:									" Apps";
-	show-icons:											true;
-	font: 													"Fira Code Nerd Font 10";
+	display-drun:    					" Apps";
+	display-window:  					"缾";
+	display-windowcd:  					"缾";
+	display-file-browser-extended: 		"";
+	display-dmenu:						" Apps";
+	show-icons:							true;
+	font: 								"JetBrainsMono Nerd Font 10";
 }
 
 * {
 	background-color:            #161320;
-  bg:                          #232831;
+  	bg:                          #232831;
 	text-color:                  #eceff4;
 	actbg:                       #DDB6F2;
 	urgbg:                       #DDB6F2;
@@ -42,19 +42,18 @@ window {
 	location:	 			west;
 	anchor:		 			west;
 	height:		 			101%;
-  // y-offset:    		3%;
-  x-offset:    		-2px;
+  	x-offset:    			-2px;
 	width:		 			35%;
-	orientation: 		horizontal;
+	orientation: 			horizontal;
 	children:	 			[mainbox];
-  border-radius: 	0px;
-  border: 				2px solid;
-  border-color: 	#DDB6F2;
+  	border-radius: 			0px;
+  	border: 				2px solid;
+  	border-color: 			#DDB6F2;
 }
 
 mainbox {
 	spacing:  0.8em;
-  orientation: vertical;
+  	orientation: vertical;
 	children: [ inputbar, listview ];
 }
 
@@ -79,84 +78,86 @@ listview {
 }
 
 element {
-  padding: 10px 0px 5px 0px;
+	
+  	padding: 10px 0px 5px 0px;
 }
 
 prompt {
-  padding: 20px 0px 0px 25px;
+  	padding: 20px 20px 0px 25px;
+	font: 				"JetBrainsMono Nerd Font 20";
 }
 
 entry {
-	expand:         true;
-	text-color:     @normal-foreground;
-	vertical-align: 0;
-	padding:        23px 0px 0px 25px;
-  font:           "monospace 14";
+	expand:         	true;
+	text-color:     	@normal-foreground;
+	vertical-align: 	0;
+	padding:        	23px 0px 0px 25px;
+  	font:           	"JetBrainsMono Nerd Font 14";
 }
 
 element normal.normal {
-	background-color: @bg;
-  border-radius:    8px;
-	text-color:       @normal-foreground;
+	background-color: 	@bg;
+  	border-radius:    	6px;
+	text-color:       	@normal-foreground;
 }
 
 element normal.urgent {
-	background-color: @bg;
-  border-radius:    8px;
-	text-color:       @urgent-foreground;
+	background-color: 	@bg;
+  	border-radius:    	6px;
+	text-color:       	@urgent-foreground;
 }
 
 element normal.active {
-	background-color: @bg;
-  border-radius:    8px;
-	text-color:       @active-foreground;
+	background-color: 	@bg;
+  	border-radius:    	6px;
+	text-color:       	@active-foreground;
 }
 
 element selected.normal {
-	background-color: @selected-normal-background;
-	text-color:       @selected-normal-foreground;
-	border:           0 5px solid 0 0;
-	border-color:	    @active-background;
+	background-color: 	@selected-normal-background;
+	text-color:       	@selected-normal-foreground;
+	border:           	0 5px solid 0 0;
+	border-color:		@active-background;
 }
 
 element selected.urgent {
-	background-color: @selected-urgent-background;
-	text-color:       @selected-urgent-foreground;
+	background-color: 	@selected-urgent-background;
+	text-color:       	@selected-urgent-foreground;
 }
 
 element selected.active {
-	background-color: @selected-active-background;
-	text-color:       @selected-active-foreground;
+	background-color: 	@selected-active-background;
+	text-color:       	@selected-active-foreground;
 }
 
 element alternate.normal {
-	background-color: @bg;
-  border-radius:    8px;
-	text-color:       @normal-foreground;
+	background-color: 	@bg;
+  	border-radius:    	6px;
+	text-color:       	@normal-foreground;
 }
 
 element alternate.urgent {
-	background-color: @bg;
-  border-radius:    8px;
-	text-color:       @urgent-foreground;
+	background-color: 	@bg;
+  	border-radius:    	6px;
+	text-color:       	@urgent-foreground;
 }
 
 element alternate.active {
-	background-color: @bg;
-  border-radius:    8px;
-	text-color:       @active-foreground;
+	background-color: 	@bg;
+  	border-radius:    	6px;
+	text-color:       	@active-foreground;
 }
 
 element-icon {
-	size: 2.65ch;
+	size: 				2.65ch;
 }
 
 element.selected {
-  border-radius: 8px;
+  	border-radius: 		6px;
 }
 
 element-text, element-icon {
-  background-color: inherit;
-  text-color:       inherit;
+  background-color: 	inherit;
+  text-color:       	inherit;
 }
 

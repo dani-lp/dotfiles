@@ -1,7 +1,7 @@
 configuration{
     modi: "run,drun,window";
     lines: 5;
-    font: "JetBrains Mono Regular 14";
+    font: "JetBrainsMono Nerd Font 14";
     show-icons: true;
     icon-theme: "Oranchelo";
     terminal: "st";
@@ -27,7 +27,7 @@ window {
     height: 360px;
     border: 2px;
     border-color: @border-col;
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: @bg-col;
 }
 
