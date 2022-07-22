@@ -293,13 +293,13 @@ w_battery = (
             foreground=colors[10],
             fontsize=18,
             padding=8,
-            decorations=_left_decor(colors[5]),
+            decorations=_left_decor(colors[1]),
         ),
         separator_sm(),
         widget.Battery(
             format="{percent:2.0%}",
             show_short_text=False,
-            foreground=colors[5],
+            foreground=colors[1],
             padding=8,
             decorations=_right_decor(colors[5]),
         ),
@@ -331,9 +331,9 @@ w_volume = widget.PulseVolume(
 w_wlan = (
     (
         widget.Wlan(
-            format="直",
+            format="󰖩",
             foreground=colors[10],
-            disconnected_message="睊",
+            disconnected_message="󰖪",
             fontsize=16,
             interface="wlo1",
             update_interval=5,
@@ -341,7 +341,7 @@ w_wlan = (
                 "Button1": lambda: qtile.cmd_spawn("" + home + "/.local/bin/nmgui"),
                 # "Button3": lambda: qtile.cmd_spawn(myTerm + " -e nmtui"),
             },
-            padding=8,
+            padding=4,
             decorations=_left_decor(colors[2]),
         ),
         separator_sm(),
