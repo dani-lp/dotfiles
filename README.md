@@ -1,5 +1,5 @@
 # Dani's dotfiles
-My personal dotfiles, currently running Arch with qtile. 
+My personal dotfiles, currently running Arch with qtile. With some inspiration from Hollow Knight!
 
 Note: these dots are intended for my setup. You can use and modify them freely, but you might 
 need to make some modifications specific to your system. Fell free to ask any questions!
@@ -20,6 +20,9 @@ need to make some modifications specific to your system. Fell free to ask any qu
 - Compositor: [Picom (Jonaburg fork)](https://github.com/jonaburg/picom)
 - Dashboard: [eww](https://github.com/elkowar/eww) config by [rxyhn](https://github.com/rxyhn/bspdots)
 - Colorscheme: [Catppuccin](https://github.com/catppuccin/catppuccin)
+
+### Other
+- The Material Design Icons font is needed: paru -S ttf-material-design-icons-extended
 
 ## Screenshots
 ![desktop](./screenshots/screenshot1.png)
