@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# small script for managing my Postgres docker-compose managed databases
+
+CONTAINERS_PATH="/home/dani/dev/containers"
+FILE="/home/dani/.local/share/dkcompose.log"
+
+dkup() {
+  # create file if it doesn't exist
+  if [ ! -f "$FILE" ]; then
+    touch $FILE 
+  fi
+
+  # if there's an active network, bring it down
+  if [ -s $FILE ]; then
+    echo "Removing previous network..."
+    SELECTED=$(cat $FILE) 
+    docker-compose -f $SELECTED down
+    echo ""
+  fi
+
+  # get wanted docker-compose to run 
+  echo "Select your new network:"
+  DC_PATH="$CONTAINERS_PATH/$(ls -1 $CONTAINERS_PATH | gum choose)/docker-compose.yaml"
+  echo $DC_PATH > $FILE
+  docker-compose -f $DC_PATH up -d
+}
+
+dkdown() {
+  # check if the file exists
+  if [ ! -f "$FILE" ]; then
+    echo "Config file does not exist!"
+    exit 1
+  fi
+
+  # check if there's a network running
+  if [ ! -s $FILE ]; then
+    echo "No docker-compose running!"
+    exit 0
+  fi
+
+  # bring down the existing network
+  echo "Shutting down..."
+  NETWORK=$(cat $FILE)
+  docker-compose -f $NETWORK down
+
+  # clear config file
+  > $FILE
+}
+
+main() {
+  OPTION_UP="ﲍ  Bring UP"
+  OPTION_DOWN="鈴 Bring DOWN"
+
+  CHOSEN=$(gum choose "$OPTION_UP" "$OPTION_DOWN" "  Exit")
+
+  if [ "$CHOSEN" == "$OPTION_UP" ]; then
+    dkup
+  elif [ "$CHOSEN" == "$OPTION_DOWN" ]; then
+    dkdown
+  else
+    exit 0
+  fi
+}
+
+main

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="/home/dani/Desktop/repos/eww/target/release:$PATH"
+export PATH="/home/dani/Desktop/repos/lib/eww/target/release:$PATH"
 
 state=$(eww windows | grep dashboard)
 
