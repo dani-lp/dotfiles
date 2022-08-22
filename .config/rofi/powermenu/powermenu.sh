@@ -7,7 +7,7 @@
 
 style="$($HOME/.config/rofi/applets/menu/style.sh)"
 
-dir="$HOME/.config/rofi/applets/menu/configs/$style"
+dir="$HOME/.config/rofi/powermenu"
 rofi_command="rofi -theme $dir/powermenu.rasi"
 
 uptime=$(uptime -p | sed -e 's/up //g')
@@ -27,12 +27,12 @@ confirm_exit() {
 		-i\
 		-no-fixed-num-lines\
 		-p "Are You Sure? : "\
-		-theme $HOME/.config/rofi/applets/styles/confirm.rasi
+		-theme $HOME/.config/rofi/powermenu/styles/confirm.rasi
 }
 
 # Message
 msg() {
-	rofi -theme "$HOME/.config/rofi/applets/styles/message.rasi" -e "Available Options  -  yes / y / no / n"
+	rofi -theme "$HOME/.config/rofi/powermenu/styles/message.rasi" -e "Available Options  -  yes / y / no / n"
 }
 
 # Variable passed to rofi

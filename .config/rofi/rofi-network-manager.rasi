@@ -3,7 +3,7 @@ configuration {
 	sidebar-mode: 	false;
 }
 *{
-	font: "JetBrains Mono Nerd Font 14";			//Font
+	font: "JetBrainsMono Nerd Font 14";			//Font
 	//Colors
 	foreground:#f8f8f2; 				//Text
 	background:#0A1229; 				//Background
