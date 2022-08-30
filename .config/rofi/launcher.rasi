@@ -87,7 +87,7 @@ textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "";
-    padding:                     12px 15px;
+    padding:                     12px 18px 12px 14px;
     border-radius:               100%;
     background-color:            @background-alt;
     text-color:                  inherit;
@@ -122,7 +122,7 @@ mode-switcher{
 }
 button {
     width:                       45px;
-    padding:                     12px;
+    padding:                     12px 2px 12px 0;
     border-radius:               100%;
     background-color:            @background-alt;
     text-color:                  inherit;

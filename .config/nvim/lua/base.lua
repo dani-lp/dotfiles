@@ -27,9 +27,24 @@ vim.opt.ai = true -- Auto indent
 vim.opt.si = true -- Smart indent
 vim.opt.wrap = true -- No wrap lines
 vim.opt.backspace = 'start,eol,indent'
+vim.opt.relativenumber = true
+vim.opt.termguicolors = true
+
+-- treesitter code folding
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 
 -- colorsheme stuff - move to another place
 vim.g.catppuccin_flavour = "mocha"
 require('catppuccin').setup()
 vim.cmd [[colorscheme catppuccin]]
+
+-- the catppuccin colors leave the line numbers too dark
+-- so this lightens them up to make them more legible
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "LineNr", { fg = "#9399b2" })
+  end
+})

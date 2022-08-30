@@ -15,6 +15,7 @@ end
 
 local servers = {
   "cssls",
+  "emmet_ls",
   "eslint",
   "html",
   "prismals",
@@ -22,7 +23,7 @@ local servers = {
   "rls",
   "rust_analyzer",
   "tailwindcss",
---  "tsserver",
+  --  "tsserver",
 }
 
 for _, lsp in ipairs(servers) do

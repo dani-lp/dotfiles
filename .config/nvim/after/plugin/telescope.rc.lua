@@ -16,6 +16,10 @@ telescope.setup {
         ['q'] = actions.close
       },
     },
+    file_ignore_patterns = {
+      ".git",
+      "node_modules",
+    }
   },
   extensions = {
     file_browser = {
@@ -79,7 +83,7 @@ vim.keymap.set(
 vim.keymap.set(
   'n',
   'sf',
-  '<cmd>lua require("telescope").extensions.file_browser.file_browser({ path = "%:p:h", cwd = telescope_buffer_dir(), respect_git_ignore = false, hidden = true, grouped = true, previewer = false, initial_mode = "normal", layout_config = { height = 40 } } ) <cr>'
+  '<cmd>lua require("telescope").extensions.file_browser.file_browser({ path = "%:p:h", respect_git_ignore = false, hidden = true, grouped = true, previewer = false, initial_mode = "normal", layout_config = { height = 40 } } ) <cr>'
   ,
   opts
 )
