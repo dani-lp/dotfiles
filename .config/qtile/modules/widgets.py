@@ -40,7 +40,7 @@ def open_powermenu():
 
 
 def open_calendar():
-    qtile.cmd_spawn("" + home + "/home/dani/.local/bin/toggle_cal")
+    qtile.cmd_spawn("" + home + "/.local/bin/toggle_cal")
 
 
 # TODO fix
@@ -408,4 +408,27 @@ w_test = widget.WidgetBox(
     text_closed=" ",
     widgets=[w_systray],
     decorations=_left_decor(colors[2]),
+)
+
+# widget box
+w_box = widget.WidgetBox(
+    close_button_location='right',
+    fontsize=24,
+    text_closed='',
+    text_open='',
+    widgets=[
+        widget.CPU(
+        
+        ),
+        widget.DF(
+        
+        ),    # free disk space
+        widget.Memory(
+        
+        ),
+        # widget.Net(
+        
+        # ),
+        # TODO uptime, CPU, temp, diskfree, memory
+    ],
 )

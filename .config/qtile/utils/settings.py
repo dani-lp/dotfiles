@@ -52,8 +52,8 @@ workspace_names = [
     "",
     "",
     "",
-    "",
     "",
+    "",
 ]
 
 # General
@@ -63,5 +63,5 @@ wallpaper_sec = "~/.config/qtile/wallpapers/hk1.jpg"
 # Hardware
 network = "enp8s0"  # network interface name
 two_monitors = True # number of screens in the system
-with_battery = False  # whether the system uses a battery or not
-with_wlan = False   # whether the system uses wlan/internet or not
+with_battery = True # whether the system uses a battery or not
+with_wlan = True # whether the system uses wlan/internet or not

@@ -139,7 +139,7 @@ keys = [
     Key([mod], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
     Key([mod], "c", lazy.spawn("code"), desc="Launch VSCode"),
-    Key([mod], "n", lazy.spawn("notion-app"), desc="Launch Notion"),
+    Key([mod], "n", lazy.spawn("notion-app-enhanced"), desc="Launch Notion"),
     Key([mod], "s", lazy.spawn("spotify"), desc="Launch Spotify"),
     Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
     # screenshots
@@ -189,7 +189,7 @@ keys.extend(
             lazy.spawn(
                 "sh -c 'echo \""
                 + show_keys()
-                + '" | rofi -dmenu -theme ~/.config/rofi/configTall.rasi -i -p ""\''
+                + '" | rofi -dmenu -theme ~/.config/rofi/hotkeys.rasi -i -p ""\''
             ),
             desc="Print keyboard bindings",
         ),

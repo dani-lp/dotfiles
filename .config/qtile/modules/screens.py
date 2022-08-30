@@ -38,8 +38,13 @@ def create_bar(extra_bar = False):
             # hidden systray
             *((w_systray,) if not extra_bar else ()),
             separator(),
+            
+            # hidden widgets TODO
+            # w_box,
+            # separator(),
+            # separator_sm(),
 
-            # WM layout indicator TODO improve
+            # WM layout indicator
             *gen_current_layout(),
 
             # Battery
