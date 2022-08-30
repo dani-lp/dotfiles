@@ -1,10 +1,11 @@
 # ls aliases
-alias ls='lsd -F --sort=extension --color=auto'
-alias ll='lsd -l'
+# alias ls='lsd -F --sort=extension --color=auto'
+alias ls='exa --icons'
+alias ll='exa -lh --icons'
 alias lsl='lsd -alF'
-alias la='lsd -A'
-alias lsa='lsd -Al'
-alias l='lsd -CF'
+alias la='exa -ah --icons'
+alias lsa='exa -lah --icons'
+alias l='exa --icons'
 
 # To avoid mistakes
 alias rm='rm -i'
@@ -19,6 +20,8 @@ alias gd='git diff'
 alias gr='git reflog'
 alias glf='git ls-files'
 alias gc='git clone'
+alias gl='git log'
+alias glog='git log --graph --abbrev-commit --decorate --format=format:"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n""%C(white)%s%C(reset) %C(dim white)- %an%C(reset)" --all'
 
 # QoL stuff
 alias c='clear'

@@ -6,9 +6,11 @@ SETUVAR Z_DATA:/home/dani/\x2elocal/share/z/data
 SETUVAR Z_DATA_DIR:/home/dani/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/home/dani\x24
 SETUVAR __fish_initialized:3400
+SETUVAR _fisher_edc_2F_bass_files:/home/dani/\x2econfig/fish/functions/__bass\x2epy\x1e/home/dani/\x2econfig/fish/functions/bass\x2efish
 SETUVAR _fisher_jethrokuan_2F_z_files:/home/dani/\x2econfig/fish/functions/__z\x2efish\x1e/home/dani/\x2econfig/fish/functions/__z_add\x2efish\x1e/home/dani/\x2econfig/fish/functions/__z_clean\x2efish\x1e/home/dani/\x2econfig/fish/functions/__z_complete\x2efish\x1e/home/dani/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/dani/\x2econfig/fish/functions/fisher\x2efish\x1e/home/dani/\x2econfig/fish/completions/fisher\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z
+SETUVAR _fisher_jorgebucaran_2F_nvm_2E_fish_files:/home/dani/\x2econfig/fish/functions/_nvm_index_update\x2efish\x1e/home/dani/\x2econfig/fish/functions/_nvm_list\x2efish\x1e/home/dani/\x2econfig/fish/functions/_nvm_version_activate\x2efish\x1e/home/dani/\x2econfig/fish/functions/_nvm_version_deactivate\x2efish\x1e/home/dani/\x2econfig/fish/functions/nvm\x2efish\x1e/home/dani/\x2econfig/fish/conf\x2ed/nvm\x2efish\x1e/home/dani/\x2econfig/fish/completions/nvm\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z\x1eedc/bass\x1ejorgebucaran/nvm\x2efish
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:005fd7
@@ -40,3 +42,5 @@ SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_user_paths:/home/dani/\x2efzf/bin
+SETUVAR nvm_data:/home/dani/\x2elocal/share/nvm
+SETUVAR nvm_mirror:https\x3a//nodejs\x2eorg/dist
