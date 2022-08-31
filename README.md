@@ -6,7 +6,7 @@ need to make some modifications specific to your system. Fell free to ask any qu
 
 ## Info
 - OS: Arch Linux 
-- WM: [Qtile](https://github.com/qtile/qtile)
+- WM: [Qtile](https://github.com/qtile/qtile) with [qtile-extras](https://github.com/elParaguayo/qtile-extras)
 - Terminal: kitty
 - Shell: fish
 - Bar: Qtile's bar
