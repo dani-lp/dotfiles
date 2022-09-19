@@ -53,6 +53,16 @@ groups.append(
                 height=0.7,
                 on_focus_lost_hide=True,
             ),
+            DropDown(
+                "btop-term",
+                "kitty btop",
+                opacity=1,
+                x=0.1,
+                y=0.15,
+                width=0.8,
+                height=0.7,
+                on_focus_lost_hide=True,
+            ),
         ],
     )
 )

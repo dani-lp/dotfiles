@@ -142,6 +142,7 @@ keys = [
     Key([mod], "n", lazy.spawn("notion-app-enhanced"), desc="Launch Notion"),
     Key([mod], "s", lazy.spawn("spotify"), desc="Launch Spotify"),
     Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
+    Key([mod, shift], "t", lazy.group["scratchpad"].dropdown_toggle("btop-term")),
     # screenshots
     Key([], "Print", lazy.spawn("" + home + "/.local/bin/prtscreen"), desc="Print Screen"),
     Key([mod], "Print", lazy.spawn("" + home + "/.local/bin/prtscreenregion"), desc="Print region of screen"),
@@ -163,7 +164,8 @@ keys = [
 
 def show_keys():
     key_help = ""
-    for k in keys:
+    for i in range(0, len(keys)):
+        k = keys[i]
         mods = ""
 
         for m in k.modifiers:
@@ -177,7 +179,7 @@ def show_keys():
         else:
             mods += k.key
 
-        key_help += "{:<25} {}".format(mods, k.desc + "\n")
+        key_help += "{:<25} {}".format(mods, k.desc + ("\n" if i != len(keys) - 1 else ""))
 
     return key_help
 
