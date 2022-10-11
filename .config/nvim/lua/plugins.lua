@@ -49,5 +49,5 @@ packer.startup(function(use)
     requires = 'nvim-lua/plenary.nvim'
   }
   use 'numToStr/Comment.nvim'
-  -- use 'akinsho/nvim-bufferline.lua'
+  use 'akinsho/nvim-bufferline.lua'
 end)

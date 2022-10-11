@@ -1,12 +1,13 @@
 local status, bufferline = pcall(require, "bufferline")
-if (status) then return end
+if (not status) then return end
 
+-- TODO set Catppuccin colors
 bufferline.setup({
   options = {
     separator_style = 'slant',
     always_show_bufferline = false,
     show_buffer_close_icons = false,
-    show_close_icon = false,
+    show_close_icon = true,
     color_icons = true
   },
   highlights = {

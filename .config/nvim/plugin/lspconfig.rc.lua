@@ -13,6 +13,7 @@ local on_attach = function(client, bufnr)
   end
 end
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
   "cssls",
   "emmet_ls",
