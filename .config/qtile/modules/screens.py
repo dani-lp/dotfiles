@@ -21,7 +21,7 @@ def create_bar(extra_bar = False):
     return bar.Bar(
         [
             # w_sys_icon,
-            w_hk,
+            w_sys_icon,
             # Workspaces
             *gen_groupbox(),
 

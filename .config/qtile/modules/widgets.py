@@ -1,6 +1,7 @@
 from libqtile import bar, qtile, lazy
 
 from qtile_extras import widget
+from qtile_extras.widget import decorations
 from qtile_extras.widget.decorations import RectDecoration
 
 from utils.settings import colors, with_battery, with_wlan, workspace_names
@@ -41,11 +42,6 @@ def open_powermenu():
 
 def open_calendar():
     qtile.cmd_spawn("" + home + "/.local/bin/toggle_cal")
-
-
-# TODO fix
-def toggle_maximize():
-    lazy.window.toggle_maximize()
 
 
 def parse_window_name(text):
@@ -133,7 +129,7 @@ def _left_decor(color, padding_x=None, padding_y=4):
     return [
         RectDecoration(
             colour=color,
-            radius=4,
+            radius=[4, 0, 0, 4],
             filled=True,
             padding_x=padding_x,
             padding_y=padding_y,
@@ -145,7 +141,7 @@ def _right_decor(color):
     return [
         RectDecoration(
             colour=colors[13],
-            radius=4,
+            radius=[0, 4, 4, 0],
             filled=True,
             padding_y=4,
             padding_x=0,
@@ -169,7 +165,8 @@ w_sys_icon = widget.TextBox(
     # text="ﮊ",
     # text="",
     # text="",
-    text="",
+    # text="",
+    text="",
     font="Font Awesome 6 Free Solid",
     fontsize=22,
     foreground="#000000",
@@ -179,52 +176,33 @@ w_sys_icon = widget.TextBox(
     mouse_callbacks={"Button1": open_launcher},
 )
 
+
 # workspace groups
-w_groupbox_1 = widget.GroupBox(  # WEB
-    font="Font Awesome 6 Brands",
-    visible_groups=[workspace_names[0]],
-    **group_box_settings,
-)
-
-w_groupbox_2 = widget.GroupBox(  # DEV, SYS
-    font="Font Awesome 6 Free Solid",
-    visible_groups=[workspace_names[1], workspace_names[2]],
-    **group_box_settings,
-)
-
-w_groupbox_3 = widget.GroupBox(  # DISC, MUS
-    font="Font Awesome 6 Brands",
-    visible_groups=[workspace_names[3], workspace_names[4]],
-    **group_box_settings,
-)
-
-w_groupbox_4 = widget.GroupBox(  # FILE, NOT
-    font="Font Awesome 6 Free Solid",
-    visible_groups=[workspace_names[5], workspace_names[6]],
-    **group_box_settings,
-)
-
-
 def gen_groupbox():
     return (
-        widget.GroupBox(  # WEB
-            font="Font Awesome 6 Brands",
-            visible_groups=[workspace_names[0]],
-            **group_box_settings,
-        ),
-        widget.GroupBox(  # DEV, SYS
+        # widget.GroupBox(  # WEB
+        #     font="Font Awesome 6 Free Solid",
+        #     visible_groups=[workspace_names[0]],
+        #     **group_box_settings,
+        # ),
+        # widget.GroupBox(  # DEV, SYS
+        #     font="Font Awesome 6 Free Solid",
+        #     visible_groups=[workspace_names[1], workspace_names[2]],
+        #     **group_box_settings,
+        # ),
+        # widget.GroupBox(  # DISC, MUS
+        #     font="Font Awesome 6 Free Solid",
+        #     visible_groups=[workspace_names[3], workspace_names[4]],
+        #     **group_box_settings,
+        # ),
+        # widget.GroupBox(  # FILE, NOT
+        #     font="Font Awesome 6 Free Solid",
+        #     visible_groups=[workspace_names[5], workspace_names[6]],
+        #     **group_box_settings,
+        # ),
+        widget.GroupBox(
             font="Font Awesome 6 Free Solid",
-            visible_groups=[workspace_names[1], workspace_names[2]],
-            **group_box_settings,
-        ),
-        widget.GroupBox(  # DISC, MUS
-            font="Font Awesome 6 Brands",
-            visible_groups=[workspace_names[3], workspace_names[4]],
-            **group_box_settings,
-        ),
-        widget.GroupBox(  # FILE, NOT
-            font="Font Awesome 6 Free Solid",
-            visible_groups=[workspace_names[5], workspace_names[6]],
+            visible_groups=workspace_names,
             **group_box_settings,
         ),
     )
@@ -248,7 +226,6 @@ w_window_name = widget.WindowName(
     empty_group_string="Desktop",
     max_chars=40,
     parse_text=parse_window_name,
-    mouse_callbacks={"Button1": toggle_maximize},
 )
 
 # systray
@@ -263,9 +240,8 @@ def gen_current_layout():
     return (
         widget.CurrentLayoutIcon(
             custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-            padding=3,
             scale=0.65,
-            use_mask=True,
+            use_mask=False,
             foreground=colors[12],
             decorations=_left_decor(color),
         ),
