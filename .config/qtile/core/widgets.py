@@ -52,7 +52,10 @@ def parse_window_name(text):
         'Visual Studio Code',
         'Discord',
     ]
-    return next(filter(lambda name: name in text, target_names), text)
+    try:
+        return next(filter(lambda name: name in text, target_names), text)
+    except TypeError:
+        return text
 
 
 # separator
