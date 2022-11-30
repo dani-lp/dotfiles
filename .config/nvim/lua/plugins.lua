@@ -50,4 +50,20 @@ packer.startup(function(use)
   }
   use 'numToStr/Comment.nvim'
   use 'akinsho/nvim-bufferline.lua'
+  use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({})
+    end
+  })
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+  }
+  use 'RRethy/vim-illuminate'
+  use 'echasnovski/mini.nvim'
+  use { 'neoclide/coc.nvim', branch = 'release' }
+  use "nullchilly/fsread.nvim"
 end)
