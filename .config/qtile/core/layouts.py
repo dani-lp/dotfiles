@@ -14,9 +14,9 @@ layout_theme = {
 
 layouts = [
     layout.Bsp(**layout_theme, fair=False, border_on_single=True),
-    layout.MonadTall(**layout_theme, ratio=0.65),
     layout.Columns(**layout_theme, insert_position=1, border_on_single=True),
-    # layout.Floating(**layout_theme),
+    layout.MonadTall(**layout_theme, ratio=0.65),
+    layout.Floating(**layout_theme),
 ]
 
 floating_layout = layout.Floating(

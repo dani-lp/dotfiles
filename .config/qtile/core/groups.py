@@ -10,7 +10,7 @@ workspaces = [
     {"name": workspace_names[2], "key": "3", "matches": [], "lay": "columns"},
     {"name": workspace_names[3], "key": "4", "matches": [Match(wm_class="discord")], "lay": "bsp"},
     {"name": workspace_names[4], "key": "5", "matches": [Match(wm_class="Spotify")], "lay": "bsp"},
-    {"name": workspace_names[5], "key": "6", "matches": [Match(wm_class="notion-app-enhanced")], "lay": "bsp"},
+    {"name": workspace_names[5], "key": "6", "matches": [], "lay": "bsp"},
     {"name": workspace_names[6], "key": "7", "matches": [Match(wm_class="cypress")], "lay": "bsp"},
 ]
 

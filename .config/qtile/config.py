@@ -1,5 +1,6 @@
 from core import (
     groups,
+    hooks,
     keys,
     mod,
     shift,

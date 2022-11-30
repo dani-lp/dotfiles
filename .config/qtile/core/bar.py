@@ -17,47 +17,22 @@ def create_bar(extra_bar = False):
         [
             # w_sys_icon,
             w_sys_icon,
-            # Workspaces
             *gen_groupbox(),
-
-            # Left spacer
             gen_spacer(),
-
-            # Window name
-            w_window_name_icon,
-            w_window_name,
-            
-            # Right spacer
+            chord(),
+            # w_window_name_icon,
+            # w_window_name,
             gen_spacer(),
-
-            # hidden systray
             *((w_systray,) if not extra_bar else ()),
             separator(),
-            
-            # hidden widgets TODO
-            # w_box,
-            # separator(),
-            # separator_sm(),
-
-            # WM layout indicator
             *gen_current_layout(),
-
-            # Battery
             *w_battery,
-
-            # Sound
             w_volume_icon,
             separator_sm(),
             w_volume,
             separator(),
-
-            # Wlan
             *w_wlan,
-
-            # Clock
             *gen_clock(),
-
-            # Power button
             w_power,
         ],
         30,

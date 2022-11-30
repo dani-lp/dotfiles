@@ -87,11 +87,12 @@ base_decor = {
 }
 
 
-def _left_decor(color: str, padding_x=None, padding_y=4):
+def _left_decor(color: str, padding_x=None, padding_y=4, round=False):
+    radius = 4 if round else [4, 0, 0, 4]
     return [
         RectDecoration(
             colour=color,
-            radius=[4, 0, 0, 4],
+            radius=radius,
             filled=True,
             padding_x=padding_x,
             padding_y=padding_y,
@@ -99,17 +100,17 @@ def _left_decor(color: str, padding_x=None, padding_y=4):
     ]
 
 
-def _right_decor():
+def _right_decor(round=False):
+    radius = 4 if round else [0, 4, 4, 0]
     return [
         RectDecoration(
             colour=color['black'],
-            radius=[0, 4, 4, 0],
+            radius=radius,
             filled=True,
             padding_y=4,
             padding_x=0,
         )
     ]
-
 
 # hollow knight icon
 w_hk = widget.Image(
@@ -150,6 +151,16 @@ def gen_groupbox():
     )
 
 
+def chord():
+    return (
+        widget.Chord(
+            # name_transform=lambda name: f'"{name}"',
+            foreground=color['bg'],
+            decorations=_left_decor(color=color['fg'], round=True),
+        )
+    )
+
+
 # spacers
 def gen_spacer():
     return widget.Spacer()
@@ -183,7 +194,7 @@ def gen_current_layout():
         widget.CurrentLayoutIcon(
             custom_icon_paths=[os.path.expanduser('~/.config/qtile/icons')],
             scale=0.65,
-            use_mask=False,
+            use_mask=True,
             foreground=color['bg'],
             decorations=_left_decor(w_color),
         ),

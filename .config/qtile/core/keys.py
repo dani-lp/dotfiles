@@ -1,8 +1,7 @@
-from libqtile.config import Key
+from libqtile.config import Key, KeyChord
 from libqtile.lazy import lazy
 
 import os
-import subprocess
 
 mod = "mod4"
 control = "control"
@@ -80,25 +79,6 @@ def resize_down(qtile):
         layout.cmd_grow_down()
 
 
-def backlight(action):
-    def f(qtile):
-        brightness = int(subprocess.run(['brightnessctl', 'g'], stdout=subprocess.PIPE).stdout)
-        max_brightness = int(subprocess.run(['brightnessctl', 'm'], stdout=subprocess.PIPE).stdout)
-        step = int(max_brightness / 10)
-
-        if action == 'inc':
-            if brightness < max_brightness - step:
-                subprocess.run(['brightnessctl', 'set', str(brightness + step)], stdout=subprocess.PIPE).stdout
-            else:
-                subprocess.run(['brightnessctl', 'set', str(max_brightness)], stdout=subprocess.PIPE).stdout
-        elif action == 'dec':
-            if brightness > step:
-                subprocess.run(['brightnessctl', 'set', str(brightness - step)], stdout=subprocess.PIPE).stdout
-            else:
-                subprocess.run(['brightnessctl', 'set', '0'], stdout=subprocess.PIPE).stdout
-    return f
-
-
 keys = [
     # essentials
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -135,6 +115,9 @@ keys = [
     Key([mod], "m", lazy.window.toggle_maximize(), desc="Toggle window between minimum and maximum sizes",),
     Key([mod, shift], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
     Key([mod], "i", lazy.window.toggle_floating(), desc="Toggle floating mode for a window"),
+    # floating mode
+    # Key([mod] , "i", lazy.layout.grow(), desc="Increase window size"),
+    # Key([mod, shift] , "i", lazy.layout.shrink(), desc="Decrease window size"),
     # program launches
     Key([mod], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
     Key([mod], "p", lazy.spawn("nautilus"), desc="Launch Nautilus"),
@@ -158,14 +141,24 @@ keys = [
     # eww
     Key([mod], "d", lazy.spawn("" + home + "/.local/bin/toggle_eww"), desc="Toggle eww dashboard",),
     # brightness
-    Key([], 'XF86MonBrightnessUp', lazy.function(backlight('inc')), desc='Increase brightness'),
-    Key([], 'XF86MonBrightnessDown', lazy.function(backlight('dec')), desc='Decrease brightness'),
+    Key([], 'XF86MonBrightnessUp', lazy.spawn('brightnessctl set +5%'), desc='Increase brightness'), 
+    Key([], 'XF86MonBrightnessDown', lazy.spawn('brightnessctl set 5%-'), desc='Decrease brightness'),
+    # misc
+    Key([mod], "w", lazy.spawn("" + home + "/.local/bin/wmname"), desc='Get wmname of a window',),
+    # keychords
+    KeyChord([mod], "l", [
+        Key([], "a", lazy.spawn("aseprite"), desc="Launch Aseprite"),
+        Key([], "d", lazy.spawn("discord"), desc="Launch Discord"),
+        Key([], "m", lazy.spawn("gnome-mahjongg"), desc="Launch Gnome Mahjongg"),
+    ], name="Launcher", ),
 ]
 
 def show_keys():
     key_help = ""
     for i in range(0, len(keys)):
         k = keys[i]
+        if not isinstance(k, Key):
+            continue
         mods = ""
 
         for m in k.modifiers:
