@@ -15,8 +15,8 @@ need to make some modifications specific to your system. Fell free to ask any qu
 - Fonts: JetBrainsMono [Nerd Font](https://github.com/ryanoasis/nerd-fonts) for general text and [Font Awesome 6 Free](https://fontawesome.com/) for some bar icons. 
 - Gtk: [Tokyo Night](https://github.com/koiosdev/Tokyo-Night-Linux/tree/master/usr/share/themes/TokyoNight)
 - File manager: Nautilus & Ranger
-- Editors: [Nvchad neovim](https://github.com/NvChad/NvChad), VSCode
-- Fetch: custom neofetch 
+- Editors: Neovim (with my own config), VSCode
+- Fetch: neofetch 
 - Compositor: [Picom (Jonaburg fork)](https://github.com/jonaburg/picom)
 - Dashboard: [eww](https://github.com/elkowar/eww) config by [rxyhn](https://github.com/rxyhn/bspdots)
 - Colorscheme: [Catppuccin](https://github.com/catppuccin/catppuccin)
