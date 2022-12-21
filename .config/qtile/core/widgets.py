@@ -20,10 +20,10 @@ group_box_settings = {
     'background': color['bg'],  # background is [10-12]
     'other_current_screen_border': color['bg'],
     'other_screen_border': color['bg'],
-    'highlight_color': color['black'],
+    'highlight_color': color['darkgray'],
     'inactive': color['gray'],
     'foreground': color['white'],
-    'borderwidth': 2,
+    'borderwidth': 2, # change to 2 to add bottom border to active group
     'disable_drag': True,
     'fontsize': 14,
     'highlight_method': 'line',
@@ -104,7 +104,7 @@ def _right_decor(round=False):
     radius = 4 if round else [0, 4, 4, 0]
     return [
         RectDecoration(
-            colour=color['black'],
+            colour=color['darkgray'],
             radius=radius,
             filled=True,
             padding_y=4,
@@ -184,11 +184,12 @@ w_window_name = widget.WindowName(
 # systray
 w_systray = widget.Systray(
     padding=5,
+    icon_size=20,
 )
 
 # current layout
 def gen_current_layout():
-    w_color = color['yellow']
+    w_color = color['pink']
 
     return (
         widget.CurrentLayoutIcon(
@@ -222,13 +223,13 @@ w_battery = (
             foreground=color['dark'],
             fontsize=18,
             padding=8,
-            decorations=_left_decor(color['pink']),
+            decorations=_left_decor(color['yellow']),
         ),
         separator_sm(),
         widget.Battery(
             format='{percent:2.0%}',
             show_short_text=False,
-            foreground=color['pink'],
+            foreground=color['yellow'],
             padding=8,
             decorations=_right_decor(),
         ),
@@ -361,3 +362,9 @@ w_box = widget.WidgetBox(
         # TODO uptime, CPU, temp, diskfree, memory
     ],
 )
+
+
+# TESTING
+w_music_1 = widget.Mpris2()
+w_music_2 = widget.Mpd2()
+

@@ -150,6 +150,7 @@ keys = [
         Key([], "a", lazy.spawn("aseprite"), desc="Launch Aseprite"),
         Key([], "d", lazy.spawn("discord"), desc="Launch Discord"),
         Key([], "m", lazy.spawn("gnome-mahjongg"), desc="Launch Gnome Mahjongg"),
+        Key([], "t", lazy.spawn("cat /home/dani/.token | xclip -selection clipboard"), desc="Copy GitHub token into the clipboard"),
     ], name="Launcher", ),
 ]
 
