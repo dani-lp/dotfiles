@@ -1,0 +1,3 @@
+#!/bin/bash
+
+notify-send "WM Name" $(xprop | grep WM_CLASS | awk '{print $4}')

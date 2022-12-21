@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Killing wpa_supplicant..."
+sudo killall wpa_supplicant
+
+echo "Restarting NetworkManager..."
+sudo systemctl restart NetworkManager
+
+echo "Done!"
