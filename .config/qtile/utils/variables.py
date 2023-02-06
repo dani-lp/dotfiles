@@ -6,7 +6,11 @@ variables = {
     'bar': 'decorated',
     'colorscheme': 'catppuccin',
     'terminal': 'kitty',
-    'wallpaper': '~/.config/qtile/wallpapers/mini_black_hole.png',
+    'wallpaper_main': '~/.config/qtile/wallpapers/mini_black_hole.png',
+    'wallpaper_sec': '~/.config/qtile/wallpapers/mini_black_hole.png',
+    'with_battery': False,
+    'with_wlan': False,
+    'two_monitors': False,
 }
 
 try:
