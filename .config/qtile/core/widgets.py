@@ -4,6 +4,7 @@ from qtile_extras import widget
 from qtile_extras.widget import decorations
 from qtile_extras.widget.decorations import RectDecoration
 
+
 from utils.settings import workspace_names
 from utils import color, config
 
@@ -23,7 +24,7 @@ group_box_settings = {
     'highlight_color': color['darkgray'],
     'inactive': color['gray'],
     'foreground': color['white'],
-    'borderwidth': 2, # change to 2 to add bottom border to active group
+    'borderwidth': 2,  # change to 2 to add bottom border to active group
     'disable_drag': True,
     'fontsize': 14,
     'highlight_method': 'line',
@@ -33,6 +34,8 @@ group_box_settings = {
 }
 
 # functions for callbacks
+
+
 def open_launcher():
     qtile.cmd_spawn('rofi -show drun -theme ~/.config/rofi/launcher.rasi')
 
@@ -112,6 +115,7 @@ def _right_decor(round=False):
         )
     ]
 
+
 # hollow knight icon
 w_hk = widget.Image(
     background=color['fg'],
@@ -146,7 +150,7 @@ def gen_groupbox():
         widget.GroupBox(
             font='Font Awesome 6 Free Solid',
             visible_groups=workspace_names,
-            **group_box_settings,
+            ** group_box_settings,
         ),
     )
 
@@ -167,6 +171,23 @@ def gen_spacer():
 
 
 # window name
+def window_name():
+    return (
+        widget.TextBox(
+            text=' ',
+            foreground='#ffffff',
+            font='Font Awesome 6 Free Solid',
+        ),
+        widget.WindowName(
+            foreground='#ffffff',
+            width=bar.CALCULATED,
+            empty_group_string='Desktop',
+            max_chars=40,
+            parse_text=parse_window_name,
+        )
+    )
+
+
 w_window_name_icon = widget.TextBox(
     text=' ',
     foreground='#ffffff',
@@ -188,6 +209,8 @@ w_systray = widget.Systray(
 )
 
 # current layout
+
+
 def gen_current_layout():
     w_color = color['pink']
 
@@ -294,6 +317,8 @@ w_wlan = (
 )
 
 # time, calendar
+
+
 def gen_clock():
     w_color = color['blue']
 
@@ -340,31 +365,57 @@ w_test = widget.WidgetBox(
     decorations=_left_decor(color['maroon']),
 )
 
+
+def w_updates():
+    w_color = color['red']
+
+    return (
+        widget.CheckUpdates(
+            display_format='󰊠',
+            distro='Arch',
+            initial_text='󰊠',
+            no_update_string='󰧵',
+            font='Material Design Icons',
+            fontsize=18,
+            foreground=color['dark'],  # blue
+            colour_have_updates=color['dark'],  # blue
+            colour_no_updates=color['dark'],  # blue
+            padding=4,
+            decorations=_left_decor(w_color),
+        ),
+        separator_sm(),
+        widget.CheckUpdates(
+            display_format='{updates}',
+            distro='Arch',
+            initial_text='󰮯',
+            no_update_string="0",
+            foreground=w_color,
+            padding=8,
+            decorations=_right_decor(),
+        ),
+        separator(),
+    )
+
+
 # widget box
-w_box = widget.WidgetBox(
-    close_button_location='right',
-    fontsize=24,
-    text_closed='',
-    text_open='',
-    widgets=[
-        widget.CPU(
-        
-        ),
-        widget.DF(
-        
-        ),    # free disk space
-        widget.Memory(
-        
-        ),
-        # widget.Net(
-        
-        # ),
-        # TODO uptime, CPU, temp, diskfree, memory
-    ],
-)
-
-
-# TESTING
-w_music_1 = widget.Mpris2()
-w_music_2 = widget.Mpd2()
-
+# w_box = widget.WidgetBox(
+#     close_button_location='right',
+#     fontsize=24,
+#     text_closed='',
+#     text_open='',
+#     widgets=[
+#         widget.CPU(
+#
+#         ),
+#         widget.DF(
+#
+#         ),    # free disk space
+#         widget.Memory(
+#
+#         ),
+#         # widget.Net(
+#
+#         # ),
+#         # TODO uptime, CPU, temp, diskfree, memory
+#     ],
+# )

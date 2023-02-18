@@ -18,6 +18,7 @@ try:
         config = json.load(file)
         file.close()
 except FileNotFoundError:
+    print("Config file not found. Using default config")
     with open(directory, 'w') as file:
         file.write(json.dumps(variables, indent = 2))
         config = variables.copy()
