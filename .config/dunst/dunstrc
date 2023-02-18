@@ -29,7 +29,8 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x60-15+46"
+    origin = top-right
+    offset = 12x46
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -61,7 +62,7 @@
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 3
+    frame_width = 2
 
     # Defines color of the frame around the notification window.
     frame_color = "#000000"
@@ -86,7 +87,7 @@
 
     ### Text ###
 
-    font = Museo Sans 10
+    font = JetBrainsMono Nerd Font 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -276,22 +277,22 @@
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     foreground = "#D9E0EE"
-    background = "#161320"
-    frame_color = "#ABE9B3"
+    background = "#1E1E2E"
+    frame_color = "#363a4f"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     icon = ~/.config/dunst/images/notification.png
 
 [urgency_normal]
-    background = "#161320"
+    background = "#1E1E2E"
     foreground = "#D9E0EE"
-    frame_color = "#DDB6F2"
+    frame_color = "#363a4f"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     icon = ~/.config/dunst/images/notification.png
 
 [urgency_critical]
-    background = "#161320"
+    background = "#1E1E2E"
     foreground = "#D9E0EE" #FDF1DB #f5bfd2 #ff8585   #ffdfd3  #fec8d8      #FDF1DB #8fbcbb
     frame_color = "#F28FAD"
     timeout = 0
