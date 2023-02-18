@@ -88,7 +88,8 @@ keys = [
     # qtile
     Key([mod, shift], "r", lazy.restart(), desc="Restart Qtile"),
     # menus
-    Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi"),
+    Key([mod], "e", lazy.spawn("rofi -show drun -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi (drun)"),
+    Key([mod], "r", lazy.spawn("rofi -show run -theme ~/.config/rofi/launcher.rasi"), desc="Launch Rofi (run)"),
     Key([mod, shift], "e", lazy.spawn("" + home + "/.local/bin/power"), desc="Power Menu"),
     Key([mod, shift], "n", lazy.spawn("" + home + "/.local/bin/nmgui"), desc="Network Menu"),
     # focus, move windows and screens
@@ -151,6 +152,7 @@ keys = [
         Key([], "d", lazy.spawn("discord"), desc="Launch Discord"),
         Key([], "m", lazy.spawn("gnome-mahjongg"), desc="Launch Gnome Mahjongg"),
         Key([], "t", lazy.spawn("cat /home/dani/.token | xclip -selection clipboard"), desc="Copy GitHub token into the clipboard"),
+        Key([], "e", lazy.spawn("/bin/bash /home/dani/dev/jku/system_software/SSW_Editor/editor_dev.sh file.txt"), desc="Copy GitHub token into the clipboard"),
     ], name="Launcher", ),
 ]
 

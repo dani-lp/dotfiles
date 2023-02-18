@@ -12,50 +12,28 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-bar_main = [
-    w_sys_icon,
-    *gen_groupbox(),
-    separator(),
-    gen_spacer(),
-    chord(),
-    gen_spacer(),
-    *((w_systray,) if not extra_bar else ()),
-    separator(),
-    *gen_current_layout(),
-    *w_battery,
-    w_volume_icon,
-    separator_sm(),
-    w_volume,
-    separator(),
-    *w_wlan,
-    *gen_clock(),
-    w_power,
-]
-
-bar_2 = [
-    w_sys_icon,
-    separator(),
-    *gen_current_layout(),
-    *gen_clock(),
-    gen_spacer(),
-    *gen_groupbox(),
-    gen_spacer(),
-    *((w_systray,) if not extra_bar else ()),
-    separator(),
-    *w_battery,
-    w_volume_icon,
-    separator_sm(),
-    w_volume,
-    separator(),
-    *w_wlan,
-    w_power,
-]
-
-
 def create_bar(extra_bar=False):
     """Create top bar, defined as function to allow duplication in other monitors"""
     return bar.Bar(
-        bar_main,
+        [
+            w_sys_icon,
+            *gen_groupbox(),
+            separator(),
+            gen_spacer(),
+            *window_name(),
+            gen_spacer(),
+            *((w_systray,) if not extra_bar else ()),
+            separator(),
+            *gen_current_layout(),
+            *w_battery,
+            w_volume_icon,
+            separator_sm(),
+            w_volume,
+            separator(),
+            *w_wlan,
+            *gen_clock(),
+            w_power,
+        ],
         30,
         margin=[4, 6, 2, 6],
         border_width=[0, 0, 0, 0],
@@ -66,4 +44,4 @@ def create_bar(extra_bar=False):
 main_screen_bar = create_bar()
 secondary_screen_bar = bar.Gap(2)
 if extra_bar:
-    secondary_screen_bar = create_bar()
+    secondary_screen_bar = create_bar(extra_bar=True)

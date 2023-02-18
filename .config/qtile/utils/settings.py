@@ -46,15 +46,26 @@ colors = [
 # ]
 
 # Without names
+# workspace_names = [
+#     "",
+#     "",
+#     "",
+#     "",
+#     "",
+#     "",
+#     "",
+# ]
+
 workspace_names = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "一",
+    "二",
+    "三",
+    "四",
+    "五",
+    "六",
+    "七",
 ]
+
 
 # General
 wallpaper_main = "~/.config/qtile/wallpapers/mini_black_hole.png"

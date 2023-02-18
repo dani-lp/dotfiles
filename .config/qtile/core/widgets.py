@@ -26,7 +26,7 @@ group_box_settings = {
     'foreground': color['white'],
     'borderwidth': 2,  # change to 2 to add bottom border to active group
     'disable_drag': True,
-    'fontsize': 14,
+    'fontsize': 20,
     'highlight_method': 'line',
     'padding_x': 10,
     'padding_y': 16,
@@ -134,6 +134,8 @@ w_sys_icon = widget.TextBox(
     # text='',
     # text='',
     text='',
+    # text='',
+    # text='',
     font='Font Awesome 6 Free Solid',
     fontsize=22,
     foreground='#000000',
@@ -148,7 +150,8 @@ w_sys_icon = widget.TextBox(
 def gen_groupbox():
     return (
         widget.GroupBox(
-            font='Font Awesome 6 Free Solid',
+            # font='Font Awesome 6 Free Solid',
+            font='Xiaolai SC',
             visible_groups=workspace_names,
             ** group_box_settings,
         ),
