@@ -5,7 +5,7 @@ from core.keys import keys, mod, shift
 from utils.settings import workspace_names
 
 workspaces = [
-    {"name": workspace_names[0], "key": "1", "matches": [Match(wm_class="firefox")], "lay": "bsp"},
+    {"name": workspace_names[0], "key": "1", "matches": [Match(wm_class="")], "lay": "bsp"},
     {"name": workspace_names[1], "key": "2", "matches": [Match(wm_class="code-oss")], "lay": "columns"},
     {"name": workspace_names[2], "key": "3", "matches": [], "lay": "columns"},
     {"name": workspace_names[3], "key": "4", "matches": [Match(wm_class="discord")], "lay": "bsp"},
