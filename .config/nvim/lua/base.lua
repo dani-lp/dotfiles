@@ -1,4 +1,3 @@
--- TODO check what lines are actually needed
 vim.cmd('autocmd!')
 
 vim.scriptencoding = 'utf-8'
@@ -10,7 +9,8 @@ vim.wo.number = true
 -- to see the full list of settings, :help option-list
 vim.opt.title = false
 vim.opt.autoindent = true
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 vim.opt.backup = false
 vim.opt.showcmd = true
 vim.opt.cmdheight = 1
@@ -25,15 +25,10 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.ai = true -- Auto indent
 vim.opt.si = true -- Smart indent
-vim.opt.wrap = true -- No wrap lines
+vim.opt.wrap = true -- Wrap lines
 vim.opt.backspace = 'start,eol,indent'
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
-
--- treesitter code folding
--- vim.opt.foldmethod = 'expr'
--- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-
 
 -- colorsheme stuff - move to another place
 vim.g.catppuccin_flavour = "mocha"

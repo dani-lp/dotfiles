@@ -1,3 +1,4 @@
+if (true) then return end
 local status, nvim_lsp = pcall(require, 'lspconfig')
 if (not status) then return end
 
@@ -19,12 +20,10 @@ local servers = {
   "cssls",
   "emmet_ls",
   "eslint",
-  "eslint",
   "html",
   "prismals",
   "pylsp",
   -- "pyright",
-  "rls",
   "rust_analyzer",
   "tailwindcss",
   --  "tsserver",
@@ -46,7 +45,7 @@ nvim_lsp.tsserver.setup {
   cmd = { 'typescript-language-server', '--stdio' }
 }
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
   settings = {
     Lua = {
@@ -54,7 +53,6 @@ nvim_lsp.sumneko_lua.setup {
         -- Get the language server to recognize the `vim` global
         globals = { 'vim' },
       },
-
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),

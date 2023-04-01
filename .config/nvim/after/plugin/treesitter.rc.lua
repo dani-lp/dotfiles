@@ -4,7 +4,7 @@ if (not status) then return end
 ts.setup {
   highlight = {
     enable = true,
-    disable = {},
+    additional_vim_regex_highlighting = false,
   },
   indent = {
     enable = true,
@@ -14,7 +14,10 @@ ts.setup {
     'css',
     'json',
     'html',
+    'markdown',
+    'markdown_inline',
     'lua',
+    'rust',
     'python',
     'tsx',
   },

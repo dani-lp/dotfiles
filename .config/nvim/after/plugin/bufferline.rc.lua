@@ -1,10 +1,18 @@
 local status, bufferline = pcall(require, "bufferline")
 if (not status) then return end
 
+local colors = require("catppuccin.palettes").get_palette "mocha"
+
+local fg = colors.text
+local bg = colors.base
+local bg_dark = colors.mantle
+local bg_light = colors.Surface1
+local mauve = colors.mauve
+local rosewater = colors.rosewater
+
 -- TODO set Catppuccin colors
 bufferline.setup({
   options = {
-    separator_style = 'slant',
     always_show_bufferline = false,
     show_buffer_close_icons = false,
     show_close_icon = false,
@@ -12,22 +20,22 @@ bufferline.setup({
   },
   highlights = {
     separator = {
-      fg = '#073642',
-      bg = '#002b36',
+      fg = mauve,
+      bg = mauve,
     },
     separator_selected = {
-      fg = '#073642',
+      fg = rosewater,
     },
     background = {
-      fg = '#657b83',
-      bg = '#002b36'
+      fg = fg,
+      bg = bg_light
     },
     buffer_selected = {
-      fg = '#D9E0EE',
+      fg = fg,
       bold = true,
     },
     fill = {
-      bg = '#073642'
+      bg = bg_dark
     }
   },
 })
