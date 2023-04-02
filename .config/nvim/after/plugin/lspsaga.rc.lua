@@ -1,9 +1,11 @@
 local status, saga = pcall(require, 'lspsaga')
 if (not status) then return end
 
-saga.setup {
-  server_filetype_map = {}
-}
+saga.setup({
+  server_filetype_map = {},
+  noremap = true,
+  silent = true,
+})
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<C-j>', '<cmd>Lspsaga diagnostic_jump_next<cr>', opts)
