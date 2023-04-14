@@ -1,0 +1,32 @@
+## change window focus
+# within space
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north 
+alt - h : yabai -m window --focus west 
+alt - l : yabai -m window --focus east
+
+# focus between displays
+alt - x : yabai -m display --focus recent
+
+
+## changing window size 
+# maximize
+alt - m : yabai -m window --toggle zoom-fullscreen
+
+# normalize sizes
+shift + alt - n : yabai -m space --balance
+
+
+## moving windows
+# to screens
+ctrl + shift + alt - up : yabai -m window --display north; yabai -m display --focus north;
+ctrl + shift + alt - down : yabai -m window --display south; yabai -m display --focus south;
+
+# to workspaces
+shift + alt - 1 : yabai -m window --space 1;
+shift + alt - 2 : yabai -m window --space 2;
+shift + alt - 3 : yabai -m window --space 3;
+shift + alt - 4 : yabai -m window --space 4;
+shift + alt - 5 : yabai -m window --space 5;
+shift + alt - 6 : yabai -m window --space 6;
+shift + alt - 7 : yabai -m window --space 7;
