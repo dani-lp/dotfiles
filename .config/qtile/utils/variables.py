@@ -1,7 +1,8 @@
 import json
 from utils import dir
 
-directory = f'{dir.get()}/config.json'
+directory = f'{dir.get()}/settings.json'
+
 variables = {
     'bar': 'decorated',
     'colorscheme': 'catppuccin',
@@ -23,3 +24,32 @@ except FileNotFoundError:
         file.write(json.dumps(variables, indent = 2))
         config = variables.copy()
         file.close()
+
+
+def load_settings(cls):
+    def wrap():
+        instance = cls()
+        with open(directory) as f:
+            instance.settings = dict(json.load(f)[0])
+            return instance
+
+    return wrap
+
+
+@load_settings
+class Variables:
+    def __init__(self):
+        pass
+
+    def __getattr__(self, name):
+        value = self.settings.get(name)
+        if isinstance(value, dict):
+            sub_instance = Variables()
+            sub_instance.settings = value
+            return sub_instance
+
+    def __getitem__(self, name):
+        return self.settings[name]
+
+
+var = Variables()
