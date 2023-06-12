@@ -1,15 +1,17 @@
 [
      {
           "general": {
+               "mod": "mod1",
+               "network": "ens33",
                "two_monitors": true,
-               "with_wlan": false,
                "with_battery": false,
-               "network": "ens33"
+               "with_wlan": false
           },
           "applications": {
                "terminal": "kitty",
                "editor": "vscodium",
                "browser": "librewolf",
+               "app_launcher": "rofi -show drun",
                "mail_client":   "thunderbird",
                "note_app": "obsidian",
                "screenshot_app": "flameshot gui"
@@ -45,15 +47,15 @@
                     "wallpaper_sec": "~/pictures/wallpapers/floating_astronaut.png"
                },
                "workspace_names": {
-                    "workspace_1": "\ue007",
-                    "workspace_2": "\uf121",
-                    "workspace_3": "\uf120",
-                    "workspace_4": "\uf70e",
-                    "workspace_5": "\uf0e0",
-                    "workspace_6": "\uf167",
-                    "workspace_7": "\uf1bc",
-                    "workspace_8": "\uf412",
-                    "workspace_9": "\uf4f9"
+                    "workspace_0": "\ue007",
+                    "workspace_1": "\uf121",
+                    "workspace_2": "\uf120",
+                    "workspace_3": "\uf70e",
+                    "workspace_4": "\uf0e0",
+                    "workspace_5": "\uf167",
+                    "workspace_6": "\uf1bc",
+                    "workspace_7": "\uf412",
+                    "workspace_8": "\uf4f9"
                }
           }
      }
