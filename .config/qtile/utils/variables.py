@@ -29,9 +29,15 @@ except FileNotFoundError:
 def load_settings(cls):
     def wrap():
         instance = cls()
-        with open(directory) as f:
-            instance.settings = dict(json.load(f)[0])
-            return instance
+        instance.settings = read_settings_file()
+        return instance
+
+    def read_settings_file():
+        try:
+            with open(directory) as f:
+                return dict(json.load(f)[0])
+        except (json.JSONDecodeError, FileNotFoundError):
+            return default_settings[0]
 
     return wrap
 
