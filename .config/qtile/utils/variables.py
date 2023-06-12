@@ -56,6 +56,9 @@ class Variables:
 
     def __getitem__(self, name):
         return self.settings[name]
+    
+    def get(self, key, default=None):
+        return self.settings.get(key, default)
 
 
 var = Variables()
