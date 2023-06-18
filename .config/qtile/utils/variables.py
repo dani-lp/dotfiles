@@ -1,9 +1,13 @@
 import json
 from utils import dir
+from typing import Any, Callable, TypeVar
 
-directory = f'{dir.get()}/settings.json'
 
-default_settings = [
+T = TypeVar("T", bound="Variables")
+
+directory: str = f"{dir.get()}/settings.json"
+
+default_settings: list[dict[str, Any]] = [
     {
         "general": {
             "mod": "mod1",
@@ -44,13 +48,13 @@ default_settings = [
 ]
 
 
-def load_settings(cls):
-    def wrap():
-        instance = cls()
+def load_settings(cls: type[T]) -> Callable[[], T]:
+    def wrap() -> T:
+        instance: T = cls()
         instance.settings = read_settings_file()
         return instance
 
-    def read_settings_file():
+    def read_settings_file() -> dict[str, Any]:
         try:
             with open(directory) as f:
                 return dict(json.load(f)[0])
@@ -63,7 +67,7 @@ def load_settings(cls):
 @load_settings
 class Variables:
     def __init__(self):
-        pass
+        self.settings: dict[str, Any]
 
     def __getattr__(self, name):
         value = self.settings.get(name)
@@ -74,7 +78,7 @@ class Variables:
 
     def __getitem__(self, name):
         return self.settings[name]
-    
+
     def get(self, key, default=None):
         return self.settings.get(key, default)
 
